@@ -89,25 +89,11 @@ contract vStoreContract is Utils {
 			require(file.owner == msg.sender, "No Access");
 
 			// remove from directory
-			string[] storage dirFiles = userFiles[msg.sender][file.parentDir];
-			(uint _index, bool _exists) = Utils.indexOfStr(dirFiles, file.id);
-			if (_exists) {
-				if (dirFiles.length > 1) {
-					dirFiles[_index] = dirFiles[dirFiles.length - 1];
-				}
-				dirFiles.pop();
-			}
+			Utils.removeStrItems(userFiles[msg.sender][file.parentDir], file.id);
 
 			// remove from favorites
 			if (file.isFavorite) {
-				string[] storage favoriteFiles = userFavoriteFiles[msg.sender];
-				(uint _fvIndex, bool _fvExists) = Utils.indexOfStr(favoriteFiles, file.id);
-				if (_fvExists) {
-					if (favoriteFiles.length > 1) {
-						favoriteFiles[_fvIndex] = favoriteFiles[favoriteFiles.length - 1];
-					}
-					favoriteFiles.pop();
-				}
+				Utils.removeStrItems(userFavoriteFiles[msg.sender], file.id);
 			}
 
 			// remove file
@@ -147,27 +133,11 @@ contract vStoreContract is Utils {
 		require(directory.owner == msg.sender, "No Access");
 
 		// remove from parentDirectory
-//		uint[] storage dirList = userDirs[msg.sender][directory.parentDir];
-//		(uint _index, bool _exists) = Utils.indexOf(dirList, directory.id);
-//		if (_exists) {
-//			if (dirList.length > 1) {
-//				dirList[_index] = dirList[dirList.length - 1];
-//			}
-//			dirList.pop();
-//		}
 		Utils.removeUintItems(userDirs[msg.sender][directory.parentDir], directory.id);
 
 		// remove from favorites
 		if (directory.isFavorite) {
 			Utils.removeUintItems(userFavoriteDirs[msg.sender], directory.id);
-//			uint[] storage favoriteDirs = userFavoriteDirs[msg.sender];
-//			(uint _fvIndex, bool _fvExists) = Utils.indexOf(favoriteDirs, directory.id);
-//			if (_fvExists) {
-//				if (favoriteDirs.length > 1) {
-//					favoriteDirs[_fvIndex] = favoriteDirs[favoriteDirs.length - 1];
-//				}
-//				favoriteDirs.pop();
-//			}
 		}
 
 		// remove dir

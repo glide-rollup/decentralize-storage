@@ -57,6 +57,16 @@ abstract contract Utils {
 		}
 	}
 
+	function removeStrItems(string[] storage list, string memory _id) internal {
+		(uint _index, bool _exists) = Utils.indexOfStr(list, _id);
+		if (_exists) {
+			if (list.length > 1) {
+				list[_index] = list[list.length - 1];
+			}
+			list.pop();
+		}
+	}
+
 	//	function string_equal(string memory _a, string memory _b) internal pure returns (bool) {
 	//		return string_compare(_a, _b) == 0;
 	//	}
