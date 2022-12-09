@@ -41,6 +41,26 @@ contract vStoreContract is Utils {
 		string ipfsHash;
 	}
 
+	// Get list of directory files. 0 is root directory
+	function getDirFiles(uint _dirId) public view returns (File[] memory) {
+		uint _filesCount = userFiles[msg.sender][_dirId].length;
+		File[] memory _result = new File[](_filesCount);
+		for (uint _i = 0; _i < _filesCount; ++_i) {
+			_result[_i] = files[userFiles[msg.sender][_dirId][_i]];
+		}
+		return _result;
+	}
+
+	// Get list of subdirectories
+	function getDirSubDirs(uint _dirId) public view returns (Directory[] memory) {
+		uint _dirsCount = userDirs[msg.sender][_dirId].length;
+		Directory[] memory _result = new Directory[](_dirsCount);
+		for (uint _i = 0; _i < _dirsCount; ++_i) {
+			_result[_i] = dirs[userDirs[msg.sender][_dirId][_i]];
+		}
+		return _result;
+	}
+
 	// Upload files
 	function uploadFiles(uint _dirId, FileUpload[] memory _files) public {
 		string memory _owner = Strings.toHexString(uint256(uint160(msg.sender)), 20);

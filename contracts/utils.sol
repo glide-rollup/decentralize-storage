@@ -15,10 +15,6 @@ abstract contract Utils {
 		Brown
 	}
 
-//	function randomNumber(uint _max, uint8 _shift) internal view returns (uint) {
-//		return uint(keccak256(abi.encodePacked(_shift, msg.sender, block.difficulty, block.timestamp, uint(1)))) % _max;
-//	}
-
 	function indexOf(uint[] memory self, uint value) internal pure returns (uint, bool) {
 		for (uint i = 0; i < self.length; ++i) if (self[i] == value) return (i, true);
 		return (0, false);
@@ -66,6 +62,10 @@ abstract contract Utils {
 			list.pop();
 		}
 	}
+
+	//	function randomNumber(uint _max, uint8 _shift) internal view returns (uint) {
+	//		return uint(keccak256(abi.encodePacked(_shift, msg.sender, block.difficulty, block.timestamp, uint(1)))) % _max;
+	//	}
 
 	//	function string_equal(string memory _a, string memory _b) internal pure returns (bool) {
 	//		return string_compare(_a, _b) == 0;
