@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require('hardhat-deploy');
 require('hardhat-deploy-ethers');
+require("hardhat-contract-sizer");
 require("./tasks")
 require("dotenv").config()
 

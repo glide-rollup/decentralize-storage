@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "./utils.sol";
 
 contract vStoreContract is Utils {
-	uint totalDirs;
+	uint private totalDirs;
 
 	mapping(uint => Directory) private dirs;
 	mapping(string => File) private files;
@@ -15,7 +15,7 @@ contract vStoreContract is Utils {
 	mapping(address => uint[]) private userFavoriteDirs;
 
 	struct Directory {
-		string id;
+		uint id;
 		uint parentDir;
 		bool isFavorite;
 		string name;
@@ -29,7 +29,6 @@ contract vStoreContract is Utils {
 		uint version;
 		uint updatedAt;
 		bool isFavorite;
-		FileType fileType;
 		address owner;
 		string name;
 		string ipfsHash;
@@ -42,7 +41,10 @@ contract vStoreContract is Utils {
 		string ipfsHash;
 	}
 
+	// Upload files
 	function uploadFiles(uint _dirId, FileUpload[] memory _files) public {
+		string memory _owner = Strings.toHexString(uint256(uint160(msg.sender)), 20);
+
 		// Validate sub-directories
 		if (_dirId > 0) {
 			Directory memory _internalDir = dirs[_dirId];
@@ -50,61 +52,126 @@ contract vStoreContract is Utils {
 			require(msg.sender == _internalDir.owner, "No Access");
 		}
 
-		string[] memory _dirFiles = userFiles[msg.sender][_dirId];
-
 		for (uint _i = 0; _i < _files.length; ++_i) {
-			string memory _uploadedFileId = string.concat(string(msg.sender), _dirId, _files[_i].name);
+			string memory _uploadedFileId = string.concat(_owner, Strings.toString(_dirId), _files[_i].name);
 			File storage file = files[_uploadedFileId];
 
-			if (file.id == _uploadedFileId) {
-				// exists
+			if (bytes(file.id).length > 0) {
+				// exists (set new version)
 				require(file.owner == msg.sender, "No Access");
 				file.version += 1;
 				file.versionHistory.push(file.ipfsHash);
 				file.ipfsHash = _files[_i].ipfsHash;
 				file.updatedAt = block.timestamp;
 			} else {
-				// upload new
-
-
-
-//				string id; // account + parentDirId + name
-//				uint parentDir;
-//				uint version;
-//				uint updatedAt;
-//				bool isFavorite;
-//				FileType fileType;
-//				address owner;
-//				string name;
-//				string ipfsHash;
-//				string shareHash;
-//				string[] versionHistory;
-
-
+				//not exists (upload new file)
 				files[_uploadedFileId] = File(
 					_uploadedFileId,
-						_dirId,
-
+					_dirId,
+					1,
+					block.timestamp,
+					false,
+					msg.sender,
+					_files[_i].name,
+					_files[_i].ipfsHash,
+					"",
+					new string[](0)
 				);
+				userFiles[msg.sender][_dirId].push(_uploadedFileId);
 			}
-
 		}
 	}
 
-	function removeFiles(uint[] _id) public {
+	// Remove files list by Id
+	function removeFiles(string[] memory _idList) public {
+		for (uint _i = 0; _i < _idList.length; ++_i) {
+			File storage file = files[_idList[_i]];
+			require(file.owner == msg.sender, "No Access");
 
+			// remove from directory
+			string[] storage dirFiles = userFiles[msg.sender][file.parentDir];
+			(uint _index, bool _exists) = Utils.indexOfStr(dirFiles, file.id);
+			if (_exists) {
+				if (dirFiles.length > 1) {
+					dirFiles[_index] = dirFiles[dirFiles.length - 1];
+				}
+				dirFiles.pop();
+			}
+
+			// remove from favorites
+			if (file.isFavorite) {
+				string[] storage favoriteFiles = userFavoriteFiles[msg.sender];
+				(uint _fvIndex, bool _fvExists) = Utils.indexOfStr(favoriteFiles, file.id);
+				if (_fvExists) {
+					if (favoriteFiles.length > 1) {
+						favoriteFiles[_fvIndex] = favoriteFiles[favoriteFiles.length - 1];
+					}
+					favoriteFiles.pop();
+				}
+			}
+
+			// remove file
+			delete files[_idList[_i]];
+		}
 	}
 
+	// Create new directory
 	function createDirectory(uint _parentDir, string memory _name) public {
+		totalDirs += 1;
 
+		dirs[totalDirs] = Directory(
+			totalDirs,
+			_parentDir,
+			false,
+			_name,
+			msg.sender,
+			DirectoryColor.Gray
+		);
+		userDirs[msg.sender][_parentDir].push(totalDirs);
 	}
 
-	function updateDirectory(uint _id, uint _parentDir, string memory _name, DirectoryColor memory _color) public {
+	// Update directory
+	function updateDirectory(uint _id, uint _parentDir, string memory _name, DirectoryColor _color) public {
+		Directory storage directory = dirs[_id];
+		require(directory.owner == msg.sender, "No Access");
 
+		directory.parentDir = _parentDir;
+		directory.name = _name;
+		directory.color = _color;
 	}
 
+	// Remove directory
 	function removeDirectory(uint _id) public {
+		Directory storage directory = dirs[_id];
+		require(_id > 0, "Wrong directory ID");
+		require(directory.owner == msg.sender, "No Access");
 
+		// remove from parentDirectory
+//		uint[] storage dirList = userDirs[msg.sender][directory.parentDir];
+//		(uint _index, bool _exists) = Utils.indexOf(dirList, directory.id);
+//		if (_exists) {
+//			if (dirList.length > 1) {
+//				dirList[_index] = dirList[dirList.length - 1];
+//			}
+//			dirList.pop();
+//		}
+		Utils.removeUintItems(userDirs[msg.sender][directory.parentDir], directory.id);
+
+		// remove from favorites
+		if (directory.isFavorite) {
+			Utils.removeUintItems(userFavoriteDirs[msg.sender], directory.id);
+//			uint[] storage favoriteDirs = userFavoriteDirs[msg.sender];
+//			(uint _fvIndex, bool _fvExists) = Utils.indexOf(favoriteDirs, directory.id);
+//			if (_fvExists) {
+//				if (favoriteDirs.length > 1) {
+//					favoriteDirs[_fvIndex] = favoriteDirs[favoriteDirs.length - 1];
+//				}
+//				favoriteDirs.pop();
+//			}
+		}
+
+		// remove dir
+		delete dirs[_id];
 	}
 
 }
