@@ -140,6 +140,19 @@ contract vStoreContract is Utils {
 			Utils.removeUintItems(userFavoriteDirs[msg.sender], directory.id);
 		}
 
+		// remove sub-directories
+		uint[] memory _subDirectories = userDirs[msg.sender][_id];
+		if (_subDirectories.length > 0) {
+			for (uint _i = 0; _i < _subDirectories.length; ++_i) {
+				removeDirectory(_subDirectories[_i]);
+			}
+		}
+
+		// remove files inside
+		if (userFiles[msg.sender][_id].length > 0) {
+			removeFiles(userFiles[msg.sender][_id]);
+		}
+
 		// remove dir
 		delete dirs[_id];
 	}
