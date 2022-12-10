@@ -1,24 +1,19 @@
 require("hardhat-deploy");
 require("hardhat-deploy-ethers");
 
+const fs = require("fs");
 const ethers = require("ethers");
 const fa = require("@glif/filecoin-address");
 const util = require("util");
+const { artifacts } = require("hardhat");
 const request = util.promisify(require("request"));
 
 const DEPLOYER_PRIVATE_KEY = network.config.accounts[0];
 
-// function hexToBytes(hex) {
-//   for (var bytes = [], c = 0; c < hex.length; c += 2)
-//     bytes.push(parseInt(hex.substr(c, 2), 16));
-//   return new Uint8Array(bytes);
-// }
-
 async function callRpc(method, params) {
-  var options = {
+  const options = {
     method: "POST",
     url: "https://wallaby.node.glif.io/rpc/v0",
-    // url: "http://localhost:1234/rpc/v0",
     headers: {
       "Content-Type": "application/json",
     },
@@ -45,40 +40,35 @@ module.exports = async ({ deployments }) => {
   console.log("Wallet Ethereum Address:", deployer.address);
   console.log("Wallet f4Address: ", f4Address)
 
-
-  await deploy("vStore", {
+  const contractName = "vStoreContract";
+  const contract = await deploy(contractName, {
     from: deployer.address,
     args: [],
-    // since it's difficult to estimate the gas before f4 address is launched, it's safer to manually set
-    // a large gasLimit. This should be addressed in the following releases.
-    // since Ethereum's legacy transaction format is not supported on FVM, we need to specify
-    // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
     maxPriorityFeePerGas: priorityFee,
     log: true,
   });
 
-  // await deploy("MinerAPI", {
-  //   from: deployer.address,
-  //   args: [0x0000001],
-  //   // since it's difficult to estimate the gas before f4 address is launched, it's safer to manually set
-  //   // a large gasLimit. This should be addressed in the following releases.
-  //   // since Ethereum's legacy transaction format is not supported on FVM, we need to specify
-  //   // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
-  //   maxPriorityFeePerGas: priorityFee,
-  //   log: true,
-  // });
-  //
-  // await deploy("MarketAPI", {
-  //   from: deployer.address,
-  //   args: [],
-  //   // since it's difficult to estimate the gas before f4 address is launched, it's safer to manually set
-  //   // a large gasLimit. This should be addressed in the following releases.
-  //   // since Ethereum's legacy transaction format is not supported on FVM, we need to specify
-  //   // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
-  //   maxPriorityFeePerGas: priorityFee,
-  //   log: true,
-  // });
+  console.log(`Deployed to `, contract.address);
+
+  // Copy frontend files
+  const contractsDir = `${__dirname}/../frontend/contractsData/`;
+  if (!fs.existsSync(contractsDir)) {
+    fs.mkdirSync(contractsDir);
+  }
+
+  const contractArtifact = artifacts.readArtifactSync(contractName);
+  fs.writeFileSync(
+    contractsDir + `/${contractName}.json`,
+    JSON.stringify(contractArtifact, null, 2)
+  );
+
+  fs.writeFileSync(
+    contractsDir + `/${contractName}-address.json`,
+    JSON.stringify({ address: contract.address }, undefined, 2)
+  );
+
+  console.log(`Frontend files saved`);
 };
 
 
-module.exports.tags = ["vStore"];
+module.exports.tags = ["vStoreContract"];
