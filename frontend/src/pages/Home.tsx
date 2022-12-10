@@ -1,5 +1,7 @@
 import {useState} from 'react'
 import {ConnectButton} from '@rainbow-me/rainbowkit';
+import topImg from '../assets/img/top-img.png'
+import logo from '../../public/favicon.svg'
 
 export default function Home() {
 
@@ -10,15 +12,10 @@ export default function Home() {
           className="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
 
           <a href="/" className="relative flex items-center inline-block h-5 h-full font-black leading-none">
-            <svg className="w-auto h-6 text-indigo-600 fill-current" viewBox="0 0 194 116"
-                 xmlns="http://www.w3.org/2000/svg">
-              <g fillRule="evenodd">
-                <path
-                  d="M96.869 0L30 116h104l-9.88-17.134H59.64l47.109-81.736zM0 116h19.831L77 17.135 67.088 0z"/>
-                <path d="M87 68.732l9.926 17.143 29.893-51.59L174.15 116H194L126.817 0z"/>
-              </g>
-            </svg>
-            <span className="ml-3 text-xl text-gray-800">Landmark<span className="text-pink-500">.</span></span>
+            <img src={logo} alt="" className="w-auto h-10 text-indigo-600 fill-current"/>
+            <span className="ml-3 text-2xl text-gray-800">
+              vStorage
+            </span>
           </a>
 
           <nav id="nav"
@@ -28,25 +25,25 @@ export default function Home() {
             <a href="#features"
                className="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-indigo-600">Features</a>
             <a href="#pricing"
-               className="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-indigo-600">Pricing</a>
+               className="mr-0 font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-indigo-600">Partners</a>
             <a href="#testimonials"
-               className="font-bold duration-100 transition-color hover:text-indigo-600">Testimonials</a>
+               className="font-bold duration-100 transition-color hover:text-indigo-600">Contact Us</a>
             <div className="flex flex-col block w-full font-medium border-t border-gray-200 md:hidden">
-              <a href="#_" className="w-full py-2 font-bold text-center text-pink-500">Login</a>
-              <a href="#_"
-                 className="relative inline-block w-full px-5 py-3 text-sm leading-none text-center text-white bg-indigo-700 fold-bold">Get
-                Started</a>
+              <ConnectButton showBalance={false}/>
+              {/*<a href="#_" className="w-full py-2 font-bold text-center text-pink-500">Login</a>*/}
+              {/*<a href="#_"*/}
+              {/*   className="relative inline-block w-full px-5 py-3 text-sm leading-none text-center text-white bg-indigo-700 fold-bold">Get*/}
+              {/*  Started</a>*/}
             </div>
           </nav>
 
           <div
             className="absolute left-0 flex-col items-center justify-center hidden w-full pb-8 mt-48 border-b border-gray-200 md:relative md:w-auto md:bg-transparent md:border-none md:mt-0 md:flex-row md:p-0 md:items-end md:flex md:justify-between">
-            <a href="#_"
-               className="relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 lg:text-white sm:mr-3 md:mt-0">Login</a>
-            <a href="#_"
-               className="relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold lg:bg-white lg:text-indigo-700 sm:w-full lg:shadow-none hover:shadow-xl">Get
-              Started</a>
-            <svg className="absolute top-0 left-0 hidden w-screen max-w-3xl -mt-64 -ml-12 lg:block"
+            <div className={"z-40"}>
+              <ConnectButton showBalance={false}/>
+            </div>
+
+            <svg className="absolute top-0 left-0 hidden w-screen max-w-3xl -mt-64 ml-12 lg:block opacity-40"
                  viewBox="0 0 818 815" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="c">
@@ -104,20 +101,21 @@ export default function Home() {
           className="container flex flex-col items-center justify-between h-full max-w-6xl px-8 mx-auto -mt-32 lg:flex-row xl:px-0">
           <div
             className="z-30 flex flex-col items-center w-full max-w-xl pt-48 text-center lg:items-start lg:w-1/2 lg:pt-20 xl:pt-40 lg:text-left">
-            <h1 className="relative mb-4 text-3xl font-black leading-tight text-gray-900 sm:text-6xl xl:mb-8">Build the
-              Next
-              Great Thing</h1>
-            <p className="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">Are you ready to start your
-              adventure and start building the next greatest SAAS app on the market?</p>
+            <h1 className="relative mb-4 text-3xl font-black leading-tight text-gray-900 sm:text-6xl xl:mb-8">
+              Decentralized version Storage
+            </h1>
+            <p className="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">
+              Own and manage your files, store and share important information using Filecoin
+              - the best decentralised data storage.
+              We increase this power by simple user interface with versioning files history.
+            </p>
             <a href="#_"
                className="relative self-start inline-block w-auto px-8 py-4 mx-auto mt-0 text-base font-bold text-white bg-indigo-600 border-t border-gray-200 rounded-md shadow-xl sm:mt-1 fold-bold lg:mx-0">Signup
               Today!</a>
 
-            <div className="flex-col hidden mt-12 sm:flex lg:mt-24">
+            <div className="flex-col hidden mt-12 sm:flex lg:mt-24"></div>
 
-            </div>
-
-            <svg className="absolute left-0 max-w-md mt-24 -ml-64 left-svg" viewBox="0 0 423 423"
+            <svg className="absolute left-0 bottom-0  max-w-md -ml-72 left-svg opacity-40" viewBox="0 0 423 423"
                  xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient x1="100%" y1="0%" x2="4.48%" y2="0%" id="linearGradient-1">
@@ -146,8 +144,8 @@ export default function Home() {
           </div>
           <div className="relative z-50 flex flex-col items-end justify-center w-full h-full lg:w-1/2 ms:pl-10">
             <div className="container relative left-0 w-full max-w-4xl lg:absolute xl:max-w-6xl lg:w-screen">
-              <img src="https://cdn.devdojo.com/images/september2020/macbook-mockup.png"
-                   className="w-full h-auto mt-20 mb-20 ml-0 lg:mt-24 xl:mt-40 lg:mb-0 lg:h-full lg:-ml-12"/>
+              <img src={topImg}
+                   className="w-7/12 h-auto mb-20 ml-12 mt-10 lg:mb-0 lg:h-full"/>
             </div>
           </div>
         </div>
@@ -359,15 +357,7 @@ export default function Home() {
             <a href="/"
                className="flex justify-start block text-left sm:text-center lg:text-left sm:justify-center lg:justify-start">
                     <span className="flex items-start sm:items-center">
-                        <svg className="w-auto h-6 text-gray-800 fill-current" viewBox="0 0 194 116"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <g fillRule="evenodd">
-                                <path
-                                  d="M96.869 0L30 116h104l-9.88-17.134H59.64l47.109-81.736zM0 116h19.831L77 17.135 67.088 0z">
-                                </path>
-                                <path d="M87 68.732l9.926 17.143 29.893-51.59L174.15 116H194L126.817 0z"></path>
-                            </g>
-                        </svg>
+                      <img src={logo} alt="" className="w-auto h-10 text-indigo-600 fill-current"/>
                     </span>
             </a>
             <p className="mt-6 mr-4 text-base text-gray-500">Crafting the next-level of user experience and engagement.
@@ -442,8 +432,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="pt-4 pt-6 mt-10 text-center text-gray-500 border-t border-gray-100">© 2020 Landmark. All rights
-          reserved.
+        <div className="pt-4 pt-6 mt-10 text-center text-gray-500 border-t border-gray-100">
+          © 2022 vStorage. All rights reserved.
         </div>
       </footer>
 
