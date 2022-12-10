@@ -24,10 +24,10 @@ export default function App() {
       <BrowserRouter>
         <Suspense fallback={loadingFallback()}>
           <Routes>
-            <Route exact path="/" element={<Home/>}/>
+            <Route path="/" element={<Home/>}/>
 
             <Route element={<ProtectedRoute/>}>
-              <Route exact path="/my" element={<MyFiles/>}/>
+              <Route path="/my" element={<MyFiles/>}/>
             </Route>
 
             <Route path='*' element={<Error404/>}/>
