@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import * as Scroll from "react-scroll";
+import {NavLink as ReactNavLink} from "react-router-dom";
 
 export const Btn = styled.button.attrs({
   className: `
@@ -24,3 +26,26 @@ export const Btn = styled.button.attrs({
     `
 })``;
 
+export const ScrollLink = styled(Scroll.Link).attrs({
+  className: `
+  font-bold 
+  duration-100 
+  md:mr-3 
+  lg:mr-8 
+  transition-color 
+  hover:text-indigo-600
+  cursor-pointer
+`
+})``;
+
+export const NavLink = styled(ReactNavLink).attrs({
+  className: `
+  font-bold 
+  duration-100 
+  md:mr-3 
+  lg:mr-8 
+  transition-color 
+  hover:text-indigo-600
+  cursor-pointer
+`
+})``;

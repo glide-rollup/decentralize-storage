@@ -2,14 +2,59 @@ import topImg from '../assets/img/top-img.png'
 import CustomConnect from "../components/CustomConnect";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import filecoinLogo from '../assets/img/filecoin.png';
+import nftStorageLogo from '../assets/img/nft-storage.svg';
 
 export default function Home() {
-
   return (
-    <div>
+    <>
       <Header/>
 
-      <div className="relative items-center justify-center w-full overflow-x-hidden lg:pt-40 lg:pb-32 xl:pt-40 xl:pb-40">
+      <div className={"z-0 pt-24"}>
+        <svg className="absolute -top-72 -right-[400px] hidden w-screen max-w-3xl lg:block opacity-40"
+             viewBox="0 0 818 815" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="c">
+              <stop stopColor="#E614F2" offset="0%"/>
+              <stop stopColor="#FC3832" offset="100%"/>
+            </linearGradient>
+            <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="f">
+              <stop stopColor="#657DE9" offset="0%"/>
+              <stop stopColor="#1C0FD7" offset="100%"/>
+            </linearGradient>
+            <filter x="-4.7%" y="-3.3%" width="109.3%" height="109.3%" filterUnits="objectBoundingBox"
+                    id="a">
+              <feOffset dy="8" in="SourceAlpha" result="shadowOffsetOuter1"/>
+              <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+              <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" in="shadowBlurOuter1"/>
+            </filter>
+            <filter x="-4.7%" y="-3.3%" width="109.3%" height="109.3%" filterUnits="objectBoundingBox"
+                    id="d">
+              <feOffset dy="8" in="SourceAlpha" result="shadowOffsetOuter1"/>
+              <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+              <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+            </filter>
+            <path
+              d="M160.52 108.243h497.445c17.83 0 24.296 1.856 30.814 5.342 6.519 3.486 11.635 8.602 15.12 15.12 3.487 6.52 5.344 12.985 5.344 30.815v497.445c0 17.83-1.857 24.296-5.343 30.814-3.486 6.519-8.602 11.635-15.12 15.12-6.52 3.487-12.985 5.344-30.815 5.344H160.52c-17.83 0-24.296-1.857-30.814-5.343-6.519-3.486-11.635-8.602-15.12-15.12-3.487-6.52-5.343-12.985-5.343-30.815V159.52c0-17.83 1.856-24.296 5.342-30.814 3.486-6.519 8.602-11.635 15.12-15.12 6.52-3.487 12.985-5.343 30.815-5.343z"
+              id="b"/>
+            <path
+              d="M159.107 107.829H656.55c17.83 0 24.296 1.856 30.815 5.342 6.518 3.487 11.634 8.602 15.12 15.12 3.486 6.52 5.343 12.985 5.343 30.816V656.55c0 17.83-1.857 24.296-5.343 30.815-3.486 6.518-8.602 11.634-15.12 15.12-6.519 3.486-12.985 5.343-30.815 5.343H159.107c-17.83 0-24.297-1.857-30.815-5.343-6.519-3.486-11.634-8.602-15.12-15.12-3.487-6.519-5.343-12.985-5.343-30.815V159.107c0-17.83 1.856-24.297 5.342-30.815 3.487-6.519 8.602-11.634 15.12-15.12 6.52-3.487 12.985-5.343 30.816-5.343z"
+              id="e"/>
+          </defs>
+          <g fill="none" fillRule="evenodd" opacity=".9">
+            <g transform="rotate(65 416.452 409.167)">
+              <use fill="#000" filter="url(#a)" xlinkHref="#b"/>
+              <use fill="url(#c)" xlinkHref="#b"/>
+            </g>
+            <g transform="rotate(29 421.929 414.496)">
+              <use fill="#000" filter="url(#d)" xlinkHref="#e"/>
+              <use fill="url(#f)" xlinkHref="#e"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div className="relative z-10 items-center justify-center w-full overflow-x-hidden lg:pt-40 lg:pb-32 xl:pt-40 xl:pb-40">
         <div
           className="container flex flex-col items-center justify-between h-full max-w-6xl px-8 mx-auto -mt-32 lg:flex-row xl:px-0">
           <div
@@ -19,16 +64,10 @@ export default function Home() {
               versioning Storage
             </h1>
             <p className="pr-0 mb-8 text-base text-gray-600 sm:text-lg xl:text-xl lg:pr-20">
-              Own and manage your files, store and share important information using Filecoin
-              - the best decentralised data storage.
-              Use all features with simple user interface and versioning files history.
+              Store and manage your files and folders, own your content and share important information using Filecoin.
+              We provide new web3 features with simple user interface for versioning files storage.
             </p>
             <CustomConnect isHeader={false}/>
-
-            {/*<a href="#_"*/}
-            {/*   className="">*/}
-            {/*  Signup Today!*/}
-            {/*</a>*/}
 
             <div className="flex-col hidden mt-12 sm:flex lg:mt-24"></div>
 
@@ -61,15 +100,15 @@ export default function Home() {
           </div>
           <div className="relative z-50 flex flex-col items-end justify-center w-full h-full lg:w-1/2 ms:pl-10">
             <div className="container relative left-0 w-full max-w-4xl lg:absolute xl:max-w-6xl lg:w-screen">
-              <img src={topImg}
-                   className="w-7/12 h-auto mb-20 ml-12 mt-10 lg:mb-0 lg:h-full"/>
+              <img src={topImg} alt={"vStorage"}
+                   className="lg:w-7/12 h-auto mb-20 lg:ml-12 mt-10 lg:mb-0 lg:h-full"/>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div id="features" className="relative w-full px-8 py-10 border-t border-gray-200 md:py-10 lg:py-20 xl:px-0">
+      <div id="features" className="relative z-10 w-full px-8 py-10 border-t border-gray-200 md:py-10 lg:py-20 xl:px-0">
         <div className="container flex flex-col items-center justify-between h-full max-w-6xl mx-auto">
           <h2 className="my-5 text-base font-medium tracking-tight text-indigo-500 uppercase">Our Features</h2>
           <h3
@@ -268,8 +307,20 @@ export default function Home() {
         </div>
       </div>
 
-      <Footer/>
+      <div id="partners" className="relative z-10 w-full px-8 py-10 border-t border-gray-200 md:py-10 lg:py-20 xl:px-0">
+        <div className="container flex flex-col items-center justify-between h-full max-w-6xl mx-auto">
+          <h3
+            className="max-w-2xl px-5 mt-2 text-3xl font-black leading-tight text-center text-gray-900 sm:mt-0 sm:px-0 sm:text-6xl">
+            Partners
+          </h3>
+          <div className="flex flex-col justify-center gap-10 w-full mt-0 lg:flex-row sm:mt-10 lg:mt-20">
+            <img src={filecoinLogo} alt="" className={"h-20"}/>
+            <img src={nftStorageLogo} alt="" className={"h-20"}/>
+          </div>
+        </div>
+      </div>
 
-    </div>
+      <Footer/>
+    </>
   )
 }

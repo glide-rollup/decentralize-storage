@@ -1,5 +1,5 @@
-import {Suspense} from 'react';
-import {BrowserRouter, Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import {Suspense, useEffect} from 'react';
+import {BrowserRouter, Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import {useAccount} from "wagmi";
 import Home from "./pages/Home";
 import MyFiles from "./pages/MyFiles";
@@ -7,6 +7,15 @@ import Error404 from "./pages/Error404";
 
 export default function App() {
   const {isConnected} = useAccount();
+
+  // useAccount({
+  //   onDisconnect() {
+  //     console.log(`-`);
+  //   },
+  //   onConnect() {
+  //     console.log(`+`);
+  //   }
+  // });
 
   const ProtectedRoute = () => {
     if (!isConnected) {

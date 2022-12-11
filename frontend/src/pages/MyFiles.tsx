@@ -1,11 +1,17 @@
-import {useState} from 'react'
-import {ConnectButton} from '@rainbow-me/rainbowkit';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function MyFiles() {
 
   return (
-    <div>
-      ...
-    </div>
+    <>
+      <Header/>
+
+      <div className={"pt-24"}>
+        ...
+      </div>
+
+      <Footer/>
+    </>
   )
 }

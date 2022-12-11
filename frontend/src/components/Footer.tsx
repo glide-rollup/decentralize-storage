@@ -1,16 +1,17 @@
 import logo from "../../public/favicon.svg";
+import {Link} from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="px-4 pt-12 pb-8 text-white bg-white border-t border-gray-200">
       <div className="container flex flex-col justify-between max-w-6xl px-4 mx-auto overflow-hidden lg:flex-row">
         <div className="w-full pl-12 mr-4 text-left lg:w-1/4 sm:text-center sm:pl-0 lg:text-left">
-          <a href="/"
-             className="flex justify-start block text-left sm:text-center lg:text-left sm:justify-center lg:justify-start">
-                    <span className="flex items-start sm:items-center">
-                      <img src={logo} alt="" className="w-auto h-10 text-indigo-600 fill-current"/>
-                    </span>
-          </a>
+          <Link to="/"
+                className="flex justify-start block text-left sm:text-center lg:text-left sm:justify-center lg:justify-start">
+            <span className="flex items-start sm:items-center">
+              <img src={logo} alt="" className="w-auto h-10 text-indigo-600 fill-current"/>
+            </span>
+          </Link>
           <p className="mt-6 mr-4 text-base text-gray-500">Crafting the next-level data storage services based on Filecoin.
           </p>
         </div>
@@ -19,7 +20,8 @@ const Footer = () => {
             <li className="inline-block px-3 py-2 mt-5 font-bold tracking-wide text-gray-800 uppercase md:mt-0">
               Product
             </li>
-            <li><a href="#_"
+            <li>
+              <a href="#_"
                    className="inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600">Features</a>
             </li>
             <li><a href="#_"
