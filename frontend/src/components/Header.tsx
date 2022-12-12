@@ -18,9 +18,7 @@ const Header = () => {
 
   useEffect(() => {
     // Change header bg on scroll
-    console.log(`1`);
     window.addEventListener("scroll", () => {
-      console.log(`2`);
       setScroll(window.scrollY > 40);
     });
   }, []);
@@ -30,7 +28,7 @@ const Header = () => {
   };
 
   return (
-    <header className={`z-50 w-full h-24 fixed ${scroll ? "bg-white shadow-md" : "bg-transparent"}`}>
+    <header className={`z-50 w-full h-24 fixed ${scroll ? "bg-white/90 shadow-md" : "bg-transparent"}`}>
       <div
         className="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
 
@@ -48,12 +46,14 @@ const Header = () => {
               <ScrollLink to={"/"} onClick={toggleHome}>Home</ScrollLink>
               <ScrollLink to={"features"} smooth={true}>Features</ScrollLink>
               <ScrollLink to={"partners"} smooth={true}>Partners</ScrollLink>
+              <ScrollLink to={"faq"} smooth={true}>FAQ</ScrollLink>
             </>
           ) : (
             <>
               <NavLink to={"/my"} end>My Files</NavLink>
               <NavLink to={"/my/favorite"}>Favorite</NavLink>
               <NavLink to={"/my/settings"}>Settings</NavLink>
+              <NavLink to={"#"}>FAQ</NavLink>
             </>
           )}
         </nav>
