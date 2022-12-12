@@ -8,7 +8,7 @@ import {Wrapper} from "../assets/css/common.style";
 
 export default function Home() {
   return (
-    <Wrapper>
+    <Wrapper className={"overflow-x-hidden"}>
       <Header/>
 
       <div className={"z-0 pt-24"}>
@@ -55,7 +55,8 @@ export default function Home() {
         </svg>
       </div>
 
-      <div className="relative z-10 items-center justify-center w-full lg:pt-40 lg:pb-8 xl:pt-48 xl:pb-10">
+      <div
+        className="relative z-10 items-center justify-center w-full lg:pt-40 lg:pb-8 xl:pt-48 xl:pb-10">
         <div
           className="container flex flex-col items-center justify-between h-full max-w-6xl px-8 mx-auto -mt-32 lg:flex-row xl:px-0">
           <div

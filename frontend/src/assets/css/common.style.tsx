@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as Scroll from "react-scroll";
-import {NavLink as ReactNavLink} from "react-router-dom";
+import {Link, NavLink as ReactNavLink} from "react-router-dom";
 
 export const Wrapper = styled.section.attrs({
   className: `
@@ -48,6 +48,17 @@ export const ScrollLink = styled(Scroll.Link).attrs({
 })``;
 
 export const NavLink = styled(ReactNavLink).attrs({
+  className: `
+  font-bold 
+  duration-100 
+  md:mr-3 
+  lg:mr-8 
+  transition-color 
+  hover:text-indigo-600
+  cursor-pointer
+`
+})``;
+export const TopLink = styled(Link).attrs({
   className: `
   font-bold 
   duration-100 

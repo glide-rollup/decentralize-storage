@@ -2,7 +2,7 @@ import logo from "../../public/favicon.svg";
 import CustomConnect from "./CustomConnect";
 import {useAccount} from "wagmi";
 import {Link, useLocation} from "react-router-dom";
-import {NavLink, ScrollLink} from "../assets/css/common.style";
+import {NavLink, ScrollLink, TopLink} from "../assets/css/common.style";
 import {useEffect, useState} from "react";
 import {animateScroll} from "react-scroll";
 
@@ -18,7 +18,9 @@ const Header = () => {
 
   useEffect(() => {
     // Change header bg on scroll
+    console.log(`1`);
     window.addEventListener("scroll", () => {
+      console.log(`2`);
       setScroll(window.scrollY > 40);
     });
   }, []);
@@ -46,14 +48,12 @@ const Header = () => {
               <ScrollLink to={"/"} onClick={toggleHome}>Home</ScrollLink>
               <ScrollLink to={"features"} smooth={true}>Features</ScrollLink>
               <ScrollLink to={"partners"} smooth={true}>Partners</ScrollLink>
-              <NavLink to={"#"}>Contact Us</NavLink>
             </>
           ) : (
             <>
-              <NavLink to={"/my"}>My Files</NavLink>
+              <NavLink to={"/my"} end>My Files</NavLink>
               <NavLink to={"/my/favorite"}>Favorite</NavLink>
               <NavLink to={"/my/settings"}>Settings</NavLink>
-              <NavLink to={"#"}>Contact Us</NavLink>
             </>
           )}
         </nav>
@@ -63,10 +63,7 @@ const Header = () => {
           md:p-0 md:items-end md:flex md:justify-between">
           <div className={"z-40 flex flex-row"}>
             {isConnected && isHomepage && (
-              <Link to={"/my"}
-                    className={`font-bold duration-100 md:mr-3 lg:mr-8 transition-color hover:text-indigo-600 mt-2.5`}>
-                My Files
-              </Link>
+              <TopLink className={"pt-2.5"} to={"/my"}>My Files</TopLink>
             )}
             <CustomConnect isHeader={true}/>
           </div>
