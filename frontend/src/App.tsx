@@ -7,6 +7,7 @@ import Error404 from "./pages/Error404";
 import Favorite from "./pages/myFiles/Favorite";
 import FilesList from "./pages/myFiles/FilesList";
 import Settings from "./pages/myFiles/Settings";
+import Faq from "./pages/myFiles/Faq";
 
 export default function App() {
   const {isConnected} = useAccount();
@@ -34,6 +35,7 @@ export default function App() {
                 <Route path="" element={<FilesList/>}/>
                 <Route path="favorite" element={<Favorite/>}/>
                 <Route path="settings" element={<Settings/>}/>
+                <Route path="faq" element={<Faq/>}/>
               </Route>
             </Route>
 

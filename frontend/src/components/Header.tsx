@@ -53,7 +53,7 @@ const Header = () => {
               <NavLink to={"/my"} end>My Files</NavLink>
               <NavLink to={"/my/favorite"}>Favorite</NavLink>
               <NavLink to={"/my/settings"}>Settings</NavLink>
-              <NavLink to={"#"}>FAQ</NavLink>
+              <NavLink to={"/my/faq"}>FAQ</NavLink>
             </>
           )}
         </nav>
@@ -63,7 +63,9 @@ const Header = () => {
           md:p-0 md:items-end md:flex md:justify-between">
           <div className={"z-40 flex flex-row"}>
             {isConnected && isHomepage && (
-              <TopLink className={"pt-2.5"} to={"/my"}>My Files</TopLink>
+              <div className={"pt-2.5"}>
+                <TopLink to={"/my"}>My Files</TopLink>
+              </div>
             )}
             <CustomConnect isHeader={true}/>
           </div>
@@ -80,4 +82,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Header

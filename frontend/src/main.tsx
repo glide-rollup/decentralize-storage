@@ -32,7 +32,7 @@ const {chains, provider} = configureChains(
     jsonRpcProvider({
       rpc: (chain) => ({
         http: chain.rpcUrls.default
-      }),
+      })
     }),
   ]
 );
