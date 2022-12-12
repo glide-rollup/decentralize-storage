@@ -13,6 +13,8 @@ contract vStoreContract is Utils {
 	mapping(address => mapping(uint => string[])) private userFiles; // [address][dir][files]
 	mapping(address => string[]) private userFavoriteFiles;
 	mapping(address => uint[]) private userFavoriteDirs;
+	mapping(address => uint) private userFilesCount;
+	mapping(address => uint) private userFilesSize;
 
 	struct Directory {
 		uint id;
@@ -28,6 +30,7 @@ contract vStoreContract is Utils {
 		uint parentDir;
 		uint version;
 		uint updatedAt;
+		uint size;
 		bool isFavorite;
 		address owner;
 		string name;
@@ -39,6 +42,7 @@ contract vStoreContract is Utils {
 	struct FileUpload {
 		string name;
 		string ipfsHash;
+		uint size;
 	}
 
 	// Get list of directory files. 0 is root directory
@@ -62,7 +66,7 @@ contract vStoreContract is Utils {
 	}
 
 	// Upload files
-	function uploadFiles(uint _dirId, FileUpload[] memory _files) public {
+	function uploadFiles(uint _dirId, FileUpload[] memory _uploadFiles) public {
 		string memory _owner = Strings.toHexString(uint256(uint160(msg.sender)), 20);
 
 		// Validate sub-directories
@@ -72,16 +76,20 @@ contract vStoreContract is Utils {
 			require(msg.sender == _internalDir.owner, "No Access");
 		}
 
-		for (uint _i = 0; _i < _files.length; ++_i) {
-			string memory _uploadedFileId = string.concat(_owner, Strings.toString(_dirId), _files[_i].name);
+		for (uint _i = 0; _i < _uploadFiles.length; ++_i) {
+			string memory _uploadedFileId = string.concat(_owner, Strings.toString(_dirId), _uploadFiles[_i].name);
 			File storage file = files[_uploadedFileId];
 
 			if (bytes(file.id).length > 0) {
 				// exists (set new version)
 				require(file.owner == msg.sender, "No Access");
+				userFilesSize[msg.sender] -= file.size;
+				userFilesSize[msg.sender] += _uploadFiles[_i].size;
+
 				file.version += 1;
+				file.size = _uploadFiles[_i].size;
 				file.versionHistory.push(file.ipfsHash);
-				file.ipfsHash = _files[_i].ipfsHash;
+				file.ipfsHash = _uploadFiles[_i].ipfsHash;
 				file.updatedAt = block.timestamp;
 			} else {
 				//not exists (upload new file)
@@ -90,14 +98,18 @@ contract vStoreContract is Utils {
 					_dirId,
 					1,
 					block.timestamp,
+					_uploadFiles[_i].size,
 					false,
 					msg.sender,
-					_files[_i].name,
-					_files[_i].ipfsHash,
+					_uploadFiles[_i].name,
+					_uploadFiles[_i].ipfsHash,
 					"",
 					new string[](0)
 				);
+
 				userFiles[msg.sender][_dirId].push(_uploadedFileId);
+				userFilesCount[msg.sender] += 1;
+				userFilesSize[msg.sender] += _uploadFiles[_i].size;
 			}
 		}
 	}
@@ -115,6 +127,9 @@ contract vStoreContract is Utils {
 			if (file.isFavorite) {
 				Utils.removeStrItems(userFavoriteFiles[msg.sender], file.id);
 			}
+
+			userFilesCount[msg.sender] -= 1;
+			userFilesSize[msg.sender] -= file.size;
 
 			// remove file
 			delete files[_idList[_i]];
