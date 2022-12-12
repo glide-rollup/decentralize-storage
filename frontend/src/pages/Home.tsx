@@ -8,7 +8,7 @@ import {Wrapper} from "../assets/css/common.style";
 
 export default function Home() {
   return (
-    <Wrapper className={"overflow-x-hidden"}>
+    <Wrapper>
       <Header/>
 
       <div className={"z-0 pt-24"}>

@@ -6,6 +6,10 @@ html, body {
   height: 100%;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 @media (max-width: 1520px) {
   .left-svg {
     display: none;
