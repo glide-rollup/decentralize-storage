@@ -1,11 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {Link} from "react-router-dom";
+import {Wrapper} from "../assets/css/common.style";
 
 export default function Error404() {
 
   return (
-    <>
+    <Wrapper>
       <Header/>
 
       <div className={"container h-full max-w-6xl px-8 mx-auto xl:px-0 pt-48 pb-64 text-center"}>
@@ -14,6 +15,6 @@ export default function Error404() {
       </div>
 
       <Footer/>
-    </>
+    </Wrapper>
   )
 }

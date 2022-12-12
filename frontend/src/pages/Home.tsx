@@ -4,10 +4,11 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import filecoinLogo from '../assets/img/filecoin.png';
 import nftStorageLogo from '../assets/img/nft-storage.svg';
+import {Wrapper} from "../assets/css/common.style";
 
 export default function Home() {
   return (
-    <>
+    <Wrapper>
       <Header/>
 
       <div className={"z-0 pt-24"}>
@@ -54,7 +55,7 @@ export default function Home() {
         </svg>
       </div>
 
-      <div className="relative z-10 items-center justify-center w-full overflow-x-hidden lg:pt-40 lg:pb-32 xl:pt-40 xl:pb-40">
+      <div className="relative z-10 items-center justify-center w-full lg:pt-40 lg:pb-8 xl:pt-48 xl:pb-10">
         <div
           className="container flex flex-col items-center justify-between h-full max-w-6xl px-8 mx-auto -mt-32 lg:flex-row xl:px-0">
           <div
@@ -101,20 +102,25 @@ export default function Home() {
           <div className="relative z-50 flex flex-col items-end justify-center w-full h-full lg:w-1/2 ms:pl-10">
             <div className="container relative left-0 w-full max-w-4xl lg:absolute xl:max-w-6xl lg:w-screen">
               <img src={topImg} alt={"vStorage"}
-                   className="lg:w-7/12 h-auto mb-20 lg:ml-12 mt-10 lg:mb-0 lg:h-full"/>
+                   className="lg:w-7/12 h-auto mb-20 lg:ml-12 mt-16 lg:mb-0 lg:h-full"/>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div id="features" className="relative z-10 w-full px-8 py-10 border-t border-gray-200 md:py-10 lg:py-20 xl:px-0">
+      <div id="features" className="relative z-10 w-full px-8 py-8 border-t border-gray-200 md:py-8 lg:py-16 xl:px-0">
         <div className="container flex flex-col items-center justify-between h-full max-w-6xl mx-auto">
-          <h2 className="my-5 text-base font-medium tracking-tight text-indigo-500 uppercase">Our Features</h2>
+          {/*<h2 className="my-5 text-base font-medium tracking-tight text-indigo-500 uppercase">Our Features</h2>*/}
           <h3
             className="max-w-2xl px-5 mt-2 text-3xl font-black leading-tight text-center text-gray-900 sm:mt-0 sm:px-0 sm:text-6xl">
-            Built and Designed with you in Mind</h3>
-          <div className="flex flex-col w-full mt-0 lg:flex-row sm:mt-10 lg:mt-20">
+            Our Features
+          </h3>
+          <p className={"w-2/3 mx-auto text-center text-lg text-gray-600 mt-8"}>
+            Store and manage your files and folders with a few clicks: organize your files, control versions,
+            share information and use your space more efficient with filecoin, a decentralized data storage.
+          </p>
+          <div className="flex flex-col w-full mt-0 lg:flex-row sm:mt-10 lg:mt-16">
 
             <div className="w-full max-w-md p-4 mx-auto mb-0 sm:mb-16 lg:mb-0 lg:w-1/3">
               <div className="relative flex flex-col items-center justify-center w-full h-full p-20 mr-5 rounded-lg">
@@ -321,6 +327,6 @@ export default function Home() {
       </div>
 
       <Footer/>
-    </>
+    </Wrapper>
   )
 }

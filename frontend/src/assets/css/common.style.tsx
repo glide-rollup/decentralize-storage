@@ -2,6 +2,15 @@ import styled from "styled-components";
 import * as Scroll from "react-scroll";
 import {NavLink as ReactNavLink} from "react-router-dom";
 
+export const Wrapper = styled.section.attrs({
+  className: `
+  flex 
+  flex-col
+  relative
+  h-screen
+  justify-between`
+})``;
+
 export const Btn = styled.button.attrs({
   className: `
     relative 
