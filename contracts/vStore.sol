@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "./utils.sol";
 
 contract vStoreContract is Utils {
-	uint private totalDirs;
+	uint public totalDirs;
 
 	mapping(uint => Directory) private dirs;
 	mapping(string => File) private files;
@@ -13,8 +13,8 @@ contract vStoreContract is Utils {
 	mapping(address => mapping(uint => string[])) private userFiles; // [address][dir][files]
 	mapping(address => string[]) private userFavoriteFiles;
 	mapping(address => uint[]) private userFavoriteDirs;
-	mapping(address => uint) private userFilesCount;
-	mapping(address => uint) private userFilesSize;
+	mapping(address => uint) public userFilesCount;
+	mapping(address => uint) public userFilesSize;
 
 	struct Directory {
 		uint id;

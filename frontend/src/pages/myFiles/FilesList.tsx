@@ -1,16 +1,43 @@
-import {Dropzone, FileItem} from "@dropzone-ui/react";
-import {useState} from "react";
+// import {Dropzone, FileItem} from "@dropzone-ui/react";
+import {useEffect, useState} from "react";
 import ListItem from "../../components/myFiles/ListItem";
 import {Breadcrumbs, Button} from "@material-tailwind/react";
 import {Link} from "react-router-dom";
 import NewDirectoryPopup from "../../components/myFiles/NewDirectoryPopup";
+import {useContractRead} from "wagmi";
+import {mainContract} from "../../utils/contracts";
 
 export default function FilesList() {
   const [files, setFiles] = useState([]);
-  const updateFiles = (incommingFiles) => {
-    console.log(`incommingFiles`, incommingFiles);
-    setFiles(incommingFiles);
-  };
+  const [currentDirectory, setCurrentDirectory] = useState(0);
+  // const updateFiles = (incommingFiles) => {
+  //   console.log(`incommingFiles`, incommingFiles);
+  //   setFiles(incommingFiles);
+  // };
+
+  // console.log(`mainContract`, mainContract);
+
+  const {data: filesList} = useContractRead({
+    ...mainContract,
+    functionName: "getDirFiles",
+    args: [currentDirectory]
+    // select: data => data.filter(c => c.distribution.distType > 0).map(collection => transformCollectionNFT(collection))
+  });
+
+  const {data: dirsList} = useContractRead({
+    ...mainContract,
+    functionName: "getDirSubDirs",
+    args: [currentDirectory]
+    // select: data => data.filter(c => c.distribution.distType > 0).map(collection => transformCollectionNFT(collection))
+  });
+
+  useEffect(() => {
+    console.log(`filesList`, filesList);
+  }, [filesList]);
+
+  useEffect(() => {
+    console.log(`dirsList`, dirsList);
+  }, [dirsList]);
 
   return (
     <>
