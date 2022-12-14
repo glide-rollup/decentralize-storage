@@ -1,12 +1,21 @@
-import {AiOutlineStar, MdDeleteOutline, MdModeEdit} from "react-icons/all";
+import {
+  AiOutlineStar,
+  HiOutlineDownload,
+  MdDeleteOutline,
+  MdModeEdit
+} from "react-icons/all";
 import {formatBytes, secondsToDate} from "../../utils/format";
 import {File} from '../../types';
 import ReactMimeIcons from 'react-mime-icons';
 
 const FileItem = ({file}: { file: File }) => {
 
+  const getDownloadURL = () => {
+    return `https://ipfs.io/ipfs/${file.ipfsHash}`;
+  }
+
   return (
-    <div className={`flex text-gray-600 flex-row justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50`}>
+    <div className={`flex text-gray-600 flex-row cursor-default justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50`}>
       <div className={"w-10"}>
         <AiOutlineStar size={20} color={"gray"}/>
       </div>
@@ -18,8 +27,23 @@ const FileItem = ({file}: { file: File }) => {
       <div className={"w-20"}>{file.version}</div>
       <div className={"w-20"}>{secondsToDate(file.updatedAt)}</div>
       <div className={"w-32 justify-end flex gap-3"}>
-        <MdModeEdit size={20}/>
-        <MdDeleteOutline size={22} color={"red"}/>
+        <a href={getDownloadURL()} download={file.name} target={'_blank'}>
+          <HiOutlineDownload
+            size={20}
+            className={"cursor-pointer opacity-80 hover:opacity-100"}
+          />
+        </a>
+        <MdModeEdit
+          size={20}
+          className={"cursor-pointer opacity-80 hover:opacity-100"}
+          onClick={() => alert('Coming soon...')}
+        />
+        <MdDeleteOutline
+          size={22}
+          className={"cursor-pointer opacity-80 hover:opacity-100"}
+          color={"red"}
+          onClick={() => alert('Coming soon...')}
+        />
       </div>
     </div>
   );

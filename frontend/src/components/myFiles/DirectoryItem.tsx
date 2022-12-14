@@ -2,9 +2,12 @@ import {Directory} from "../../types";
 import {AiOutlineStar, GoFileDirectory, MdDeleteOutline, MdModeEdit} from "react-icons/all";
 import {secondsToDate} from "../../utils/format";
 
-const DirectoryItem = ({dir}: { dir: Directory }) => {
+const DirectoryItem = ({dir, openDirectory}: { dir: Directory, openDirectory: Function }) => {
+
   return (
-    <div className={"flex text-gray-600 flex-row justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50"}>
+    <div onDoubleClick={() => openDirectory()}
+         className={`flex text-gray-600 cursor-default flex-row justify-between border-b py-2.5 
+      text-sm px-4 gap-2 hover:bg-gray-50`}>
       <div className={"w-10"}>
         <AiOutlineStar size={20} color={"gray"}/>
       </div>
@@ -16,8 +19,15 @@ const DirectoryItem = ({dir}: { dir: Directory }) => {
       <div className={"w-20"}>&minus;</div>
       <div className={"w-20"}>{secondsToDate(dir.updatedAt)}</div>
       <div className={"w-32 justify-end flex gap-3"}>
-        <MdModeEdit size={20}/>
-        <MdDeleteOutline size={22} color={"red"}/>
+        <MdModeEdit
+          size={20}
+          className={"cursor-pointer opacity-80 hover:opacity-100"}
+        />
+        <MdDeleteOutline
+          size={22}
+          color={"red"}
+          className={"cursor-pointer opacity-80 hover:opacity-100"}
+        />
       </div>
     </div>
   );

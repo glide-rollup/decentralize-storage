@@ -70,3 +70,10 @@ export const TopLink = styled(Link).attrs({
   cursor-pointer
 `
 })``;
+
+export const BreadcrumbItem = styled.span.attrs({
+  className: `
+  text-sm 
+  font-medium
+`
+})``;
