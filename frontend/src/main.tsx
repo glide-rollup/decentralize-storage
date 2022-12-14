@@ -2,14 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 
-import '@rainbow-me/rainbowkit/styles.css'
-import './assets/css/index.css'
-
 import {configureChains, createClient, WagmiConfig} from 'wagmi';
 import {ThemeProvider} from "@material-tailwind/react";
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {connectorsForWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import {injectedWallet, metaMaskWallet} from "@rainbow-me/rainbowkit/wallets";
+import {Provider} from "react-redux";
+import store from "./store";
+
+import '@rainbow-me/rainbowkit/styles.css'
+import './assets/css/index.css'
 
 const wallabyChain = {
   id: 31415,
@@ -55,10 +57,12 @@ const wagmiClient = createClient({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <WagmiConfig client={wagmiClient}>
-    <ThemeProvider>
-      <RainbowKitProvider modalSize="compact" chains={chains}>
-        <App/>
-      </RainbowKitProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <RainbowKitProvider modalSize="compact" chains={chains}>
+          <App/>
+        </RainbowKitProvider>
+      </ThemeProvider>
+    </Provider>
   </WagmiConfig>
 )

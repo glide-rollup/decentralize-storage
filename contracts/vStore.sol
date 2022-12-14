@@ -7,7 +7,7 @@ import "./utils.sol";
 contract vStoreContract is Utils {
 	uint public totalDirs;
 
-	mapping(uint => Directory) private dirs;
+	mapping(uint => Directory) public dirs;
 	mapping(string => File) private files;
 	mapping(address => mapping(uint => uint[])) private userDirs; // [address][dir][subDir]
 	mapping(address => mapping(uint => string[])) private userFiles; // [address][dir][files]
@@ -19,6 +19,7 @@ contract vStoreContract is Utils {
 	struct Directory {
 		uint id;
 		uint parentDir;
+		uint updatedAt;
 		bool isFavorite;
 		string name;
 		address owner;
@@ -34,6 +35,7 @@ contract vStoreContract is Utils {
 		bool isFavorite;
 		address owner;
 		string name;
+		string mimeType;
 		string ipfsHash;
 		string shareHash;
 		string[] versionHistory;
@@ -42,25 +44,26 @@ contract vStoreContract is Utils {
 	struct FileUpload {
 		string name;
 		string ipfsHash;
+		string mimeType;
 		uint size;
 	}
 
 	// Get list of directory files. 0 is root directory
-	function getDirFiles(uint _dirId) public view returns (File[] memory) {
-		uint _filesCount = userFiles[msg.sender][_dirId].length;
+	function getDirFiles(uint _dirId, address _account) public view returns (File[] memory) {
+		uint _filesCount = userFiles[_account][_dirId].length;
 		File[] memory _result = new File[](_filesCount);
 		for (uint _i = 0; _i < _filesCount; ++_i) {
-			_result[_i] = files[userFiles[msg.sender][_dirId][_i]];
+			_result[_i] = files[userFiles[_account][_dirId][_i]];
 		}
 		return _result;
 	}
 
 	// Get list of subdirectories
-	function getDirSubDirs(uint _dirId) public view returns (Directory[] memory) {
-		uint _dirsCount = userDirs[msg.sender][_dirId].length;
+	function getDirSubDirs(uint _dirId, address _account) public view returns (Directory[] memory) {
+		uint _dirsCount = userDirs[_account][_dirId].length;
 		Directory[] memory _result = new Directory[](_dirsCount);
 		for (uint _i = 0; _i < _dirsCount; ++_i) {
-			_result[_i] = dirs[userDirs[msg.sender][_dirId][_i]];
+			_result[_i] = dirs[userDirs[_account][_dirId][_i]];
 		}
 		return _result;
 	}
@@ -102,6 +105,7 @@ contract vStoreContract is Utils {
 					false,
 					msg.sender,
 					_uploadFiles[_i].name,
+					_uploadFiles[_i].mimeType,
 					_uploadFiles[_i].ipfsHash,
 					"",
 					new string[](0)
@@ -111,6 +115,8 @@ contract vStoreContract is Utils {
 				userFilesCount[msg.sender] += 1;
 				userFilesSize[msg.sender] += _uploadFiles[_i].size;
 			}
+
+			dirs[_dirId].updatedAt = block.timestamp;
 		}
 	}
 
@@ -143,6 +149,7 @@ contract vStoreContract is Utils {
 		dirs[totalDirs] = Directory(
 			totalDirs,
 			_parentDir,
+			block.timestamp,
 			false,
 			_name,
 			msg.sender,
