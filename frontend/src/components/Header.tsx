@@ -23,7 +23,7 @@ const Header = () => {
     });
   }, []);
 
-  const toggleHome = () => {
+  const scrollTop = () => {
     animateScroll.scrollToTop();
   };
 
@@ -40,10 +40,12 @@ const Header = () => {
         </Link>
 
         <nav id="nav"
-             className="absolute top-0 left-0 z-50 flex flex-col items-center justify-between hidden w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative">
+             className="absolute top-0 left-0 z-50 flex flex-col items-center justify-between hidden w-full h-64 pt-5 mt-24 text-sm
+             text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent
+             md:mt-0 md:border-none md:py-0 md:flex md:relative">
           {isHomepage ? (
             <>
-              <ScrollLink to={"/"} onClick={toggleHome}>Home</ScrollLink>
+              <ScrollLink to={"/"} onClick={scrollTop}>Home</ScrollLink>
               <ScrollLink to={"features"} smooth={true}>Features</ScrollLink>
               <ScrollLink to={"partners"} smooth={true}>Partners</ScrollLink>
               <ScrollLink to={"faq"} smooth={true}>FAQ</ScrollLink>
@@ -64,7 +66,7 @@ const Header = () => {
           <div className={"z-40 flex flex-row"}>
             {isConnected && isHomepage && (
               <div className={"pt-2.5"}>
-                <TopLink to={"/my"}>My Files</TopLink>
+                <TopLink to={"/my"} onClick={scrollTop}>My Files</TopLink>
               </div>
             )}
             <CustomConnect isHeader={true}/>

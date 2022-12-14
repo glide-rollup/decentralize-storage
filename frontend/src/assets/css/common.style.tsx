@@ -40,7 +40,7 @@ export const ScrollLink = styled(Scroll.Link).attrs({
   font-bold 
   duration-100 
   md:mr-3 
-  lg:mr-8 
+  lg:mr-9
   transition-color 
   hover:text-indigo-600
   cursor-pointer
@@ -52,7 +52,7 @@ export const NavLink = styled(ReactNavLink).attrs({
   font-bold 
   duration-100 
   md:mr-3 
-  lg:mr-8 
+  lg:mr-9 
   transition-color 
   hover:text-indigo-600
   cursor-pointer

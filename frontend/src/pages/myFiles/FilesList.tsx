@@ -58,7 +58,8 @@ export default function FilesList() {
             )}
           </Breadcrumbs>
         ) : (
-          <p className={"flex flex-wrap items-center bg-blue-gray-50 bg-opacity-60 py-2 px-4 rounded-md mt-1 text-sm"}>
+          <p className={`flex text-gray-600 flex-wrap items-center bg-blue-gray-50 bg-opacity-60 py-2 px-4 
+          rounded-md mt-1.5 text-sm font-medium`}>
             My Files
           </p>
         )}
@@ -75,7 +76,8 @@ export default function FilesList() {
 
       {(subDirectories && subDirectories?.length > 0) ? (
         <>
-          <div className={"flex flex-row justify-between border-t border-b py-2.5 font-semibold text-sm bg-gray-50 px-4 gap-2"}>
+          <div
+            className={"flex text-gray-800 flex-row justify-between border-b py-4 pb-2 font-semibold text-sm px-4 gap-2"}>
             <div className={"w-10"}></div>
             <div className={"flex-1"}>Name</div>
             <div className={"w-32"}>Size</div>
