@@ -40,7 +40,7 @@ module.exports = async ({ deployments }) => {
   console.log("Wallet Ethereum Address:", deployer.address);
   console.log("Wallet f4Address: ", f4Address)
 
-  const contractName = "vStoreContract";
+  const contractName = "vStorageContract";
   const contract = await deploy(contractName, {
     from: deployer.address,
     args: [],
@@ -70,5 +70,4 @@ module.exports = async ({ deployments }) => {
   console.log(`Frontend files saved`);
 };
 
-
-module.exports.tags = ["vStoreContract"];
+module.exports.tags = ["vStorageContract"];

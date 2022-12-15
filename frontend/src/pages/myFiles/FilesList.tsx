@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import DirectoryItem from "../../components/myFiles/DirectoryItem";
-import {Breadcrumbs, Button} from "@material-tailwind/react";
 import NewDirectoryPopup from "../../components/myFiles/NewDirectoryPopup";
 import {useAccount, useContractRead} from "wagmi";
 import {mainContract} from "../../utils/contracts";
@@ -9,31 +8,37 @@ import {DirectoryInput, Directory, FileInput, File} from "../../types";
 import UploadFilesPopup from "../../components/myFiles/UploadFilesPopup";
 import FileItem from "../../components/myFiles/FileItem";
 import {Loader} from "../../components/Loader";
-import {BreadcrumbItem} from "../../assets/css/common.style";
+import {useNavigate, useParams} from "react-router-dom";
+import BreadcrumbsPath from "../../components/myFiles/Breadcrumbs";
 
 export default function FilesList() {
+  const navigate = useNavigate();
   const {address} = useAccount();
+  const {currentDirectoryId} = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [currentDirectoryId, setCurrentDirectoryId] = useState(0);
+
 
   const {data: directory} = useContractRead({
     ...mainContract,
     functionName: "dirs",
-    args: [currentDirectoryId],
+    args: [parseInt(currentDirectoryId || "0")],
+    // @ts-ignore
     select: (data: DirectoryInput): Directory => transformDir(data)
   });
 
   const {data: filesList, refetch: refetchFilesList} = useContractRead({
     ...mainContract,
     functionName: "getDirFiles",
-    args: [currentDirectoryId, address],
+    args: [parseInt(currentDirectoryId || "0"), address],
+    // @ts-ignore
     select: (data: FileInput[]): File[] => data.map(file => transformFile(file))
   });
 
   const {data: subDirectories, refetch: refetchSubDirs} = useContractRead({
     ...mainContract,
     functionName: "getDirSubDirs",
-    args: [currentDirectoryId, address],
+    args: [parseInt(currentDirectoryId || "0"), address],
+    // @ts-ignore
     select: (data: DirectoryInput[]): Directory[] => data.map(dir => transformDir(dir))
   });
 
@@ -41,11 +46,14 @@ export default function FilesList() {
     setIsLoading(false);
   }, [directory]);
 
-  useEffect(() => {
-    if (currentDirectoryId) {
-      setIsLoading(true);
+  const openDirectory = (dirId: number) => {
+    setIsLoading(true);
+    if (dirId) {
+      navigate(`/my/${dirId}`);
+    } else {
+      navigate(`/my`);
     }
-  }, [currentDirectoryId]);
+  }
 
   if (isLoading) {
     return (
@@ -58,27 +66,17 @@ export default function FilesList() {
   return (
     <>
       <div className={"flex flex-row justify-between mb-3"}>
-        {directory && directory.id > 0 ? (
-          <Breadcrumbs className={"mt-1.5 text-gray-600 font-medium"}>
-            <BreadcrumbItem onClick={() => setCurrentDirectoryId(0)}>My Files</BreadcrumbItem>
-            {directory?.id && (
-              <BreadcrumbItem className={`opacity-60 pointer-events-none`}>
-                {directory.name}
-              </BreadcrumbItem>
-            )}
-          </Breadcrumbs>
-        ) : (
-          <p className={`mt-1.5 flex text-gray-600 flex-wrap items-center bg-blue-gray-50 bg-opacity-60 py-2 px-4 rounded-md`}>
-            <BreadcrumbItem>My Files</BreadcrumbItem>
-          </p>
-        )}
+        <BreadcrumbsPath
+          directory={directory}
+          openDirectory={openDirectory}
+        />
 
         <div className={"flex gap-3"}>
           <NewDirectoryPopup handleSuccess={() => refetchSubDirs()}
-                             directoryId={currentDirectoryId}
+                             directoryId={parseInt(currentDirectoryId || "0")}
           />
           <UploadFilesPopup handleSuccess={() => refetchFilesList()}
-                            directoryId={currentDirectoryId}
+                            directoryId={parseInt(currentDirectoryId || "0")}
           />
         </div>
       </div>
@@ -99,7 +97,7 @@ export default function FilesList() {
             <>
               {subDirectories.map(dir => (
                 <DirectoryItem key={`d-${dir.id}`}
-                               openDirectory={() => setCurrentDirectoryId(dir.id)}
+                               openDirectory={() => openDirectory(dir.id)}
                                dir={dir}
                 />
               ))}
@@ -117,7 +115,7 @@ export default function FilesList() {
         </>
       ) : (
         <p className={"text-center pt-6 text-gray-500"}>
-          {currentDirectoryId !== 0 ? "*No files in directory" : "*No files/directories"}
+          {currentDirectoryId ? "*No files in directory" : "*No files/directories"}
         </p>
       )}
     </>

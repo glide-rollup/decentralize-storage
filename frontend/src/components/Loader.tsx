@@ -1,7 +1,7 @@
 import React from "react";
 
 export function Loader({size}: { size: string }) {
-  const sizeMap = {
+  const sizeMap: { [index: string]: string } = {
     'sm': "w-4 h-4",
     'md': "w-6 h-6",
     'lg': "w-8 h-8",

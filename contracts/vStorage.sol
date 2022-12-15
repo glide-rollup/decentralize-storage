@@ -4,7 +4,7 @@ pragma solidity ^0.8.16;
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "./utils.sol";
 
-contract vStoreContract is Utils {
+contract vStorageContract is Utils {
 	uint public totalDirs;
 
 	mapping(uint => Directory) public dirs;

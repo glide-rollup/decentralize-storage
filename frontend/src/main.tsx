@@ -31,6 +31,7 @@ const wallabyChain = {
 const {chains, provider} = configureChains(
   [wallabyChain],
   [
+    // @ts-ignore
     jsonRpcProvider({
       rpc: (chain) => ({
         http: chain.rpcUrls.default

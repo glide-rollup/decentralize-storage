@@ -1,7 +1,14 @@
 import {BigNumber} from "ethers";
+import {Hash} from "@wagmi/core";
+
+export interface IState {
+  transactions: {
+    list: TransactionType[]
+  };
+}
 
 export type TransactionType = {
-  hash: string,
+  hash: Hash,
   description: string
 };
 

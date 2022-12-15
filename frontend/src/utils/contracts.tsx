@@ -1,5 +1,5 @@
-import mainContractAddress from '../../contractsData/vStoreContract-address.json';
-import mainContractABI from '../../contractsData/vStoreContract.json';
+import mainContractAddress from '../../contractsData/vStorageContract-address.json';
+import mainContractABI from '../../contractsData/vStorageContract.json';
 
 export const mainContract = {
   address: mainContractAddress.address,

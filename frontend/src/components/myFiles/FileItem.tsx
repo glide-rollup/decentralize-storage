@@ -6,6 +6,8 @@ import {
 } from "react-icons/all";
 import {formatBytes, secondsToDate} from "../../utils/format";
 import {File} from '../../types';
+
+// @ts-ignore
 import ReactMimeIcons from 'react-mime-icons';
 
 const FileItem = ({file}: { file: File }) => {

@@ -10,11 +10,11 @@ import Settings from "./pages/myFiles/Settings";
 import Faq from "./pages/myFiles/Faq";
 import {useSelector} from 'react-redux';
 import {Transaction} from "./components/Transaction";
-import {TransactionType} from "./types";
+import {IState, TransactionType} from "./types";
 
 export default function App() {
   const {isConnected} = useAccount();
-  const transactions: TransactionType[] = useSelector(state => state.transactions.list);
+  const transactions: TransactionType[] = useSelector((state: IState) => state.transactions.list);
 
   const ProtectedRoute = () => {
     if (!isConnected) {
@@ -37,6 +37,7 @@ export default function App() {
             <Route element={<ProtectedRoute/>}>
               <Route path="/my" element={<MyFilesLayout/>}>
                 <Route path="" element={<FilesList/>}/>
+                <Route path=":currentDirectoryId" element={<FilesList/>}/>
                 <Route path="favorite" element={<Favorite/>}/>
                 <Route path="settings" element={<Settings/>}/>
                 <Route path="faq" element={<Faq/>}/>
@@ -48,7 +49,7 @@ export default function App() {
         </Suspense>
       </BrowserRouter>
 
-      {transactions.length > 0 && (
+      {transactions && transactions.length > 0 && (
         <div className="fixed z-50 right-0 top-0 w-[400px] pr-4 pt-4">
           {transactions.map(tx => (
             <Transaction tx={tx} key={tx.hash}/>
