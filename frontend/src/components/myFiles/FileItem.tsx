@@ -22,6 +22,7 @@ const FileItem = ({file}: { file: File }) => {
     <div className={`flex text-gray-600 flex-row cursor-default justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50`}>
       <div className={"w-10"}>
         <AiOutlineStar size={20} color={"gray"}/>
+        {/*<AiOutlineStar size={20} color={"orange"}/>*/}
       </div>
       <div className={"flex-1 font-medium flex pl-0.5"}>
         <ReactMimeIcons mimetype={file.mimeType} size={'1.05rem'}/>
