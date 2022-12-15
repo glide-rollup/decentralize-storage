@@ -3,6 +3,7 @@ import {AiOutlineStar, GoFileDirectory, MdDeleteOutline, MdModeEdit} from "react
 import {secondsToDate} from "../../utils/format";
 import ItemRemove from "./ItemRemove";
 import {useState} from "react";
+import ItemFavorite from "./ItemFavorite";
 
 const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openDirectory: Function, reloadList: Function }) => {
   const [isRemoval, setIsRemoval] = useState(false);
@@ -10,9 +11,15 @@ const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openD
   return (
     <div onDoubleClick={() => openDirectory()}
          className={`flex text-gray-600 cursor-default flex-row justify-between border-b py-2.5 
-        text-sm px-4 gap-2 hover:bg-gray-50 ${isRemoval && "opacity-50"}`}>
+        text-sm px-4 gap-2 hover:bg-gray-50 ${isRemoval ? "opacity-50" : ""}`}>
       <div className={"w-10"}>
-        <AiOutlineStar size={20} color={"gray"}/>
+        <ItemFavorite
+          isFavorite={dir.isFavorite}
+          itemId={dir.id}
+          itemType={'directory'}
+          toggleFavorite={() => {
+          }}
+        />
       </div>
       <div className={"flex-1 font-medium flex"}>
         <GoFileDirectory size={20}/>
@@ -24,6 +31,7 @@ const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openD
       <div className={"w-32 justify-end flex gap-3"}>
         <MdModeEdit
           size={20}
+          onClick={() => alert('Coming soon...')}
           className={"cursor-pointer opacity-80 hover:opacity-100"}
         />
         <ItemRemove

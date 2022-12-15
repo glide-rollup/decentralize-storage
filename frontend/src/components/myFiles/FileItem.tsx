@@ -11,6 +11,7 @@ import VirsionListPopup from "./VirsionListPopup";
 import ItemRemove from "./ItemRemove";
 // @ts-ignore
 import ReactMimeIcons from 'react-mime-icons';
+import ItemFavorite from "./ItemFavorite";
 
 const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
   const [isRemoval, setIsRemoval] = useState(false);
@@ -19,29 +20,17 @@ const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
     return `https://ipfs.io/ipfs/${file.ipfsHash}`;
   }
 
-  const toggleFavorite = () => {
-    console.log(`toggleFavorite`);
-  }
-
   return (
     <div className={`flex text-gray-600 flex-row cursor-default justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50
-    ${isRemoval && "opacity-50"}`}>
+    ${isRemoval ? "opacity-50" : ""}`}>
       <div className={"w-10"}>
-        {file.isFavorite ? (
-          <AiFillStar
-            size={20}
-            color={"orange"}
-            className={"cursor-pointer opacity-70 transition hover:opacity-100"}
-            onClick={() => toggleFavorite()}
-          />
-        ) : (
-          <AiOutlineStar
-            size={20}
-            color={"gray"}
-            className={"cursor-pointer opacity-70 transition hover:opacity-100"}
-            onClick={() => toggleFavorite()}
-          />
-        )}
+        <ItemFavorite
+          isFavorite={file.isFavorite}
+          itemId={file.id}
+          itemType={'file'}
+          toggleFavorite={() => {
+          }}
+        />
       </div>
       <div className={"flex-1 font-medium flex pl-0.5"}>
         <ReactMimeIcons mimetype={file.mimeType} size={'1.05rem'}/>
@@ -69,7 +58,7 @@ const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
         <ItemRemove
           idList={[file.id]}
           itemType={"file"}
-          handleStartRemove={(status: boolean)=> setIsRemoval(status)}
+          handleStartRemove={(status: boolean) => setIsRemoval(status)}
           handleSuccess={() => reloadList()}
         />
       </div>

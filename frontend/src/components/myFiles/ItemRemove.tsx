@@ -17,21 +17,22 @@ const ItemRemove = ({itemType, idList, handleStartRemove, handleSuccess}: {
   const {config: configRemove} = usePrepareContractWrite({
     ...mainContract,
     functionName: itemType === 'file' ? 'removeFiles' : 'removeDirs',
-    enabled: removeList.length > 0 && itemType === 'file',
+    enabled: removeList.length > 0,
     args: [removeList]
   });
 
   const {data: dataRemove, write: writeRemove, status: removeStatus} = useContractWrite({
     ...configRemove,
     onSuccess: ({hash}) => {
-
+      setRemoveList([]);
       dispatch(addTransaction({
         hash: hash,
-        description: `Remove ${itemType}${idList.length > 1 && "s"}`
+        description: `Remove ${itemType}${idList.length > 1 ? "s" : ""}`
       }));
     },
     onError: ({message}) => {
       setRemoveList([]);
+      handleStartRemove(false);
       console.log(`Error`, message);
     },
   });
@@ -51,6 +52,7 @@ const ItemRemove = ({itemType, idList, handleStartRemove, handleSuccess}: {
   useEffect(() => {
     if (writeRemove && removeStatus !== 'loading') {
       writeRemove();
+      handleStartRemove(true);
     }
   }, [writeRemove]);
 

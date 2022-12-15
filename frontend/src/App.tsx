@@ -8,13 +8,9 @@ import Favorite from "./pages/myFiles/Favorite";
 import FilesList from "./pages/myFiles/FilesList";
 import Settings from "./pages/myFiles/Settings";
 import Faq from "./pages/myFiles/Faq";
-import {useSelector} from 'react-redux';
-import {Transaction} from "./components/Transaction";
-import {IState, TransactionType} from "./types";
 
 export default function App() {
   const {isConnected} = useAccount();
-  const transactions: TransactionType[] = useSelector((state: IState) => state.transactions.list);
 
   const ProtectedRoute = () => {
     if (!isConnected) {
@@ -48,14 +44,6 @@ export default function App() {
           </Routes>
         </Suspense>
       </BrowserRouter>
-
-      {transactions && transactions.length > 0 && (
-        <div className="fixed z-50 right-0 top-0 w-[400px] pr-4 pt-4">
-          {transactions.map(tx => (
-            <Transaction tx={tx} key={tx.hash}/>
-          ))}
-        </div>
-      )}
     </>
   );
 }

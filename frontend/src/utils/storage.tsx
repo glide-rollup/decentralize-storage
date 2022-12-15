@@ -10,3 +10,14 @@ export const uploadFiles = (filesList: File[]) => {
     resolve(result);
   })
 }
+
+// export const removeFiles = (filesList: string[] | number[]) => {
+//   let promiseList: Promise<void>[] = [];
+//   filesList.map(fileHash => {
+//     promiseList.push(new Promise(async () => {
+//       await client.delete(fileHash.toString());
+//     }));
+//   })
+//
+//   return Promise.all(promiseList);
+// }
