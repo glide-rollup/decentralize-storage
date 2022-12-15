@@ -21,11 +21,10 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
   const handleOpen = () => setPopupVisible(!popupVisible);
 
   const appendFiles = (incomingFiles: FileValidated[]) => {
-    console.log(`incomingFiles`, incomingFiles);
     setFiles(incomingFiles);
   };
 
-  const {config: configUpload, error: errorUpload} = usePrepareContractWrite({
+  const {config: configUpload} = usePrepareContractWrite({
     ...mainContract,
     functionName: 'uploadFiles',
     enabled: uploadedFiles.length > 0,
@@ -88,10 +87,6 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
       setUploadedFiles(resultFiles);
     });
   }
-
-  useEffect(() => {
-    console.log(`errorUpload`, errorUpload);
-  }, [errorUpload]);
 
   return (
     <>

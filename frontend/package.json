@@ -11,7 +11,7 @@
   "dependencies": {
     "@dropzone-ui/react": "^6.7.20",
     "@material-tailwind/react": "^1.2.4",
-    "@rainbow-me/rainbowkit": "^0.8.0",
+    "@rainbow-me/rainbowkit": "^0.8.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react-scroll": "^1.8.5",
     "autoprefixer": "^10.4.13",
@@ -27,7 +27,7 @@
     "react-scroll": "^1.8.8",
     "styled-components": "^5.3.6",
     "tailwindcss": "^3.2.4",
-    "wagmi": "^0.8.10"
+    "wagmi": "^0.9.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

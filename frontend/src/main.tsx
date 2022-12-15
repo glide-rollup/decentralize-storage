@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 
-import {configureChains, createClient, WagmiConfig} from 'wagmi';
+import {Chain, configureChains, createClient, WagmiConfig} from 'wagmi';
 import {ThemeProvider} from "@material-tailwind/react";
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {connectorsForWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
@@ -13,7 +13,7 @@ import store from "./store";
 import '@rainbow-me/rainbowkit/styles.css'
 import './assets/css/index.css'
 
-const wallabyChain = {
+const wallabyChain: Chain = {
   id: 31415,
   name: 'Filecoin Wallaby',
   network: 'wallaby',
@@ -23,7 +23,7 @@ const wallabyChain = {
     symbol: 'tFIL',
   },
   rpcUrls: {
-    default: "https://wallaby.node.glif.io/rpc/v0",
+    default: {http: ["https://wallaby.node.glif.io/rpc/v0"]},
   },
   testnet: true,
 }
@@ -31,11 +31,10 @@ const wallabyChain = {
 const {chains, provider} = configureChains(
   [wallabyChain],
   [
-    // @ts-ignore
     jsonRpcProvider({
       rpc: (chain) => ({
-        http: chain.rpcUrls.default
-      })
+        http: chain.rpcUrls.default.http[0],
+      }),
     }),
   ]
 );

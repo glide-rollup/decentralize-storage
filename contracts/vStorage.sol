@@ -143,7 +143,7 @@ contract vStorageContract is Utils {
 	}
 
 	// Create new directory
-	function createDirectory(uint _parentDir, string memory _name) public {
+	function createDir(uint _parentDir, string memory _name) public {
 		totalDirs += 1;
 
 		dirs[totalDirs] = Directory(
@@ -159,7 +159,7 @@ contract vStorageContract is Utils {
 	}
 
 	// Update directory
-	function updateDirectory(uint _id, uint _parentDir, string memory _name, DirectoryColor _color) public {
+	function updateDir(uint _id, uint _parentDir, string memory _name, DirectoryColor _color) public {
 		Directory storage directory = dirs[_id];
 		require(directory.owner == msg.sender, "No Access");
 
@@ -169,34 +169,35 @@ contract vStorageContract is Utils {
 	}
 
 	// Remove directory
-	function removeDirectory(uint _id) public {
-		Directory storage directory = dirs[_id];
-		require(_id > 0, "Wrong directory ID");
-		require(directory.owner == msg.sender, "No Access");
+	function removeDirs(uint[] memory _idList) public {
+		for (uint _i = 0; _i < _idList.length; ++_i) {
+			require(_idList[_i] > 0, "Wrong directory ID");
 
-		// remove from parentDirectory
-		Utils.removeUintItems(userDirs[msg.sender][directory.parentDir], directory.id);
+			Directory storage directory = dirs[_idList[_i]];
+			require(directory.owner == msg.sender, "No Access");
 
-		// remove from favorites
-		if (directory.isFavorite) {
-			Utils.removeUintItems(userFavoriteDirs[msg.sender], directory.id);
-		}
+			// remove from parentDirectory
+			Utils.removeUintItems(userDirs[msg.sender][directory.parentDir], directory.id);
 
-		// remove sub-directories
-		uint[] memory _subDirectories = userDirs[msg.sender][_id];
-		if (_subDirectories.length > 0) {
-			for (uint _i = 0; _i < _subDirectories.length; ++_i) {
-				removeDirectory(_subDirectories[_i]);
+			// remove from favorites
+			if (directory.isFavorite) {
+				Utils.removeUintItems(userFavoriteDirs[msg.sender], directory.id);
 			}
-		}
 
-		// remove files inside
-		if (userFiles[msg.sender][_id].length > 0) {
-			removeFiles(userFiles[msg.sender][_id]);
-		}
+			// remove sub-directories
+			uint[] memory _subDirectories = userDirs[msg.sender][_idList[_i]];
+			if (_subDirectories.length > 0) {
+				removeDirs(_subDirectories);
+			}
 
-		// remove dir
-		delete dirs[_id];
+			// remove files inside
+			if (userFiles[msg.sender][_idList[_i]].length > 0) {
+				removeFiles(userFiles[msg.sender][_idList[_i]]);
+			}
+
+			// remove dir
+			delete dirs[_idList[_i]];
+		}
 	}
 
 }

@@ -2,18 +2,18 @@ import {
   AiFillStar,
   AiOutlineStar,
   HiOutlineDownload,
-  MdDeleteOutline,
   MdModeEdit
 } from "react-icons/all";
+import {useState} from "react";
 import {formatBytes, secondsToDate} from "../../utils/format";
 import {File} from '../../types';
 import VirsionListPopup from "./VirsionListPopup";
-
+import ItemRemove from "./ItemRemove";
 // @ts-ignore
 import ReactMimeIcons from 'react-mime-icons';
 
-
-const FileItem = ({file}: { file: File }) => {
+const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
+  const [isRemoval, setIsRemoval] = useState(false);
 
   const getDownloadURL = () => {
     return `https://ipfs.io/ipfs/${file.ipfsHash}`;
@@ -24,7 +24,8 @@ const FileItem = ({file}: { file: File }) => {
   }
 
   return (
-    <div className={`flex text-gray-600 flex-row cursor-default justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50`}>
+    <div className={`flex text-gray-600 flex-row cursor-default justify-between border-b py-2.5 text-sm px-4 gap-2 hover:bg-gray-50
+    ${isRemoval && "opacity-50"}`}>
       <div className={"w-10"}>
         {file.isFavorite ? (
           <AiFillStar
@@ -65,12 +66,11 @@ const FileItem = ({file}: { file: File }) => {
           className={"cursor-pointer opacity-70 transition hover:opacity-100"}
           onClick={() => alert('Coming soon...')}
         />
-        <MdDeleteOutline
-          size={22}
-          title={"Remove"}
-          className={"cursor-pointer opacity-70 transition hover:opacity-100"}
-          color={"red"}
-          onClick={() => alert('Coming soon...')}
+        <ItemRemove
+          idList={[file.id]}
+          itemType={"file"}
+          handleStartRemove={(status: boolean)=> setIsRemoval(status)}
+          handleSuccess={() => reloadList()}
         />
       </div>
     </div>

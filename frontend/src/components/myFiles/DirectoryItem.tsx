@@ -1,13 +1,16 @@
 import {Directory} from "../../types";
 import {AiOutlineStar, GoFileDirectory, MdDeleteOutline, MdModeEdit} from "react-icons/all";
 import {secondsToDate} from "../../utils/format";
+import ItemRemove from "./ItemRemove";
+import {useState} from "react";
 
-const DirectoryItem = ({dir, openDirectory}: { dir: Directory, openDirectory: Function }) => {
+const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openDirectory: Function, reloadList: Function }) => {
+  const [isRemoval, setIsRemoval] = useState(false);
 
   return (
     <div onDoubleClick={() => openDirectory()}
          className={`flex text-gray-600 cursor-default flex-row justify-between border-b py-2.5 
-      text-sm px-4 gap-2 hover:bg-gray-50`}>
+        text-sm px-4 gap-2 hover:bg-gray-50 ${isRemoval && "opacity-50"}`}>
       <div className={"w-10"}>
         <AiOutlineStar size={20} color={"gray"}/>
       </div>
@@ -23,10 +26,11 @@ const DirectoryItem = ({dir, openDirectory}: { dir: Directory, openDirectory: Fu
           size={20}
           className={"cursor-pointer opacity-80 hover:opacity-100"}
         />
-        <MdDeleteOutline
-          size={22}
-          color={"red"}
-          className={"cursor-pointer opacity-80 hover:opacity-100"}
+        <ItemRemove
+          idList={[dir.id]}
+          itemType={"directory"}
+          handleStartRemove={(status: boolean) => setIsRemoval(status)}
+          handleSuccess={() => reloadList()}
         />
       </div>
     </div>

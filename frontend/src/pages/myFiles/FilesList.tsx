@@ -72,11 +72,13 @@ export default function FilesList() {
         />
 
         <div className={"flex gap-3"}>
-          <NewDirectoryPopup handleSuccess={() => refetchSubDirs()}
-                             directoryId={parseInt(currentDirectoryId || "0")}
+          <NewDirectoryPopup
+            handleSuccess={() => refetchSubDirs()}
+            directoryId={parseInt(currentDirectoryId || "0")}
           />
-          <UploadFilesPopup handleSuccess={() => refetchFilesList()}
-                            directoryId={parseInt(currentDirectoryId || "0")}
+          <UploadFilesPopup
+            handleSuccess={() => refetchFilesList()}
+            directoryId={parseInt(currentDirectoryId || "0")}
           />
         </div>
       </div>
@@ -91,14 +93,16 @@ export default function FilesList() {
         <div className={"w-32 text-right"}>Actions</div>
       </div>
 
-      {(subDirectories && subDirectories?.length > 0) ? (
+      {(subDirectories && subDirectories?.length > 0) || (filesList && filesList?.length > 0) ? (
         <>
           {(subDirectories && subDirectories.length > 0) && (
             <>
               {subDirectories.map(dir => (
-                <DirectoryItem key={`d-${dir.id}`}
-                               openDirectory={() => openDirectory(dir.id)}
-                               dir={dir}
+                <DirectoryItem
+                  key={`d-${dir.id}`}
+                  openDirectory={() => openDirectory(dir.id)}
+                  reloadList={() => refetchSubDirs()}
+                  dir={dir}
                 />
               ))}
             </>
@@ -106,8 +110,10 @@ export default function FilesList() {
           {(filesList && filesList.length > 0) && (
             <>
               {filesList.map(file => (
-                <FileItem key={`f-${file.id}`}
-                          file={file}
+                <FileItem
+                  key={`f-${file.id}`}
+                  file={file}
+                  reloadList={() => refetchFilesList()}
                 />
               ))}
             </>

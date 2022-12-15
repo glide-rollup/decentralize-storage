@@ -16,7 +16,7 @@ const NewDirectoryPopup = ({directoryId, handleSuccess}: { directoryId: number, 
 
   const {config: configCall} = usePrepareContractWrite({
     ...mainContract,
-    functionName: 'createDirectory',
+    functionName: 'createDir',
     enabled: directoryTitle.length > 0,
     args: [directoryId, directoryTitle]
   });
