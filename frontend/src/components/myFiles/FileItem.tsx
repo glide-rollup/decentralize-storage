@@ -1,6 +1,6 @@
 import {
   AiOutlineStar,
-  HiOutlineDownload,
+  HiOutlineDownload, IoListCircleOutline,
   MdDeleteOutline,
   MdModeEdit
 } from "react-icons/all";
@@ -9,6 +9,7 @@ import {File} from '../../types';
 
 // @ts-ignore
 import ReactMimeIcons from 'react-mime-icons';
+import VirsionListPopup from "./VirsionListPopup";
 
 const FileItem = ({file}: { file: File }) => {
 
@@ -26,23 +27,28 @@ const FileItem = ({file}: { file: File }) => {
         <span className={"ml-2 text-gray-800 font-medium"}>{file.name}</span>
       </div>
       <div className={"w-32"}>{formatBytes(file.size)}</div>
-      <div className={"w-20"}>{file.version}</div>
+      <div className={"w-20 flex"}>
+        <VirsionListPopup file={file}/>
+      </div>
       <div className={"w-20"}>{secondsToDate(file.updatedAt)}</div>
       <div className={"w-32 justify-end flex gap-3"}>
         <a href={getDownloadURL()} download={file.name} target={'_blank'}>
           <HiOutlineDownload
             size={20}
-            className={"cursor-pointer opacity-80 hover:opacity-100"}
+            title={"Download"}
+            className={"cursor-pointer opacity-70 transition hover:opacity-100"}
           />
         </a>
         <MdModeEdit
           size={20}
-          className={"cursor-pointer opacity-80 hover:opacity-100"}
+          title={"Edit"}
+          className={"cursor-pointer opacity-70 transition hover:opacity-100"}
           onClick={() => alert('Coming soon...')}
         />
         <MdDeleteOutline
           size={22}
-          className={"cursor-pointer opacity-80 hover:opacity-100"}
+          title={"Remove"}
+          className={"cursor-pointer opacity-70 transition hover:opacity-100"}
           color={"red"}
           onClick={() => alert('Coming soon...')}
         />
