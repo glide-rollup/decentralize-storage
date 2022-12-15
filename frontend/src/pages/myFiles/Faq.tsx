@@ -10,7 +10,7 @@ export default function Faq() {
         </p>
       </div>
 
-      <p className={"mt-10"}>TBA...</p>
+      <p className={"mt-10"}>FAQ in progress...</p>
     </>
   )
 }

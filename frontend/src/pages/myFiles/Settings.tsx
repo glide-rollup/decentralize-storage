@@ -2,7 +2,7 @@ export default function Settings() {
 
   return (
     <>
-      Settings
+      Settings in progress...
     </>
   )
 }

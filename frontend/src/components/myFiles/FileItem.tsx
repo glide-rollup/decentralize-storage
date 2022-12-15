@@ -1,15 +1,16 @@
 import {
   AiOutlineStar,
-  HiOutlineDownload, IoListCircleOutline,
+  HiOutlineDownload,
   MdDeleteOutline,
   MdModeEdit
 } from "react-icons/all";
 import {formatBytes, secondsToDate} from "../../utils/format";
 import {File} from '../../types';
+import VirsionListPopup from "./VirsionListPopup";
 
 // @ts-ignore
 import ReactMimeIcons from 'react-mime-icons';
-import VirsionListPopup from "./VirsionListPopup";
+
 
 const FileItem = ({file}: { file: File }) => {
 

@@ -2,7 +2,7 @@ export default function Favorite() {
 
   return (
     <>
-      Favorite
+      Favorite list in progress...
     </>
   )
 }
