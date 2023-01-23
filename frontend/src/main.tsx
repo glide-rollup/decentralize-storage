@@ -13,23 +13,23 @@ import store from "./store";
 import '@rainbow-me/rainbowkit/styles.css'
 import './assets/css/index.css'
 
-const wallabyChain: Chain = {
-  id: 31415,
-  name: 'Filecoin Wallaby',
-  network: 'wallaby',
+const hyperspaceChain: Chain = {
+  id: 3141,
+  name: 'Filecoin Hyperspace testnet',
+  network: 'hyperspace',
   nativeCurrency: {
     decimals: 18,
     name: 'tFIL',
     symbol: 'tFIL',
   },
   rpcUrls: {
-    default: {http: ["https://wallaby.node.glif.io/rpc/v0"]},
+    default: {http: ["https://api.hyperspace.node.glif.io/rpc/v0"]},
   },
   testnet: true,
 }
 
 const {chains, provider} = configureChains(
-  [wallabyChain],
+  [hyperspaceChain],
   [
     jsonRpcProvider({
       rpc: (chain) => ({

@@ -8,10 +8,10 @@ require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.16",
-  defaultNetwork: "wallaby",
+  defaultNetwork: "hyperspace",
   networks: {
-    wallaby: {
-      url: "https://wallaby.node.glif.io/rpc/v0",
+    hyperspace: {
+      url: "https://api.hyperspace.node.glif.io/rpc/v0",
       accounts: [process.env.PRIVATE_KEY]
     }
   },
