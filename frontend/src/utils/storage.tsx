@@ -1,13 +1,20 @@
 import {NFTStorage} from "nft.storage";
 
-const client = new NFTStorage({
-  token: import.meta.env.VITE_NFT_STORAGE_TOKEN
-});
+export const STORAGE_KEY = "vStorage:key";
 
 export const uploadFiles = (filesList: File[]) => {
-  return new Promise(async (resolve) => {
-    const result = await client.storeDirectory(filesList);
-    resolve(result);
+  const nft_storage_api_key = localStorage.getItem(STORAGE_KEY);
+  const client = new NFTStorage({
+    token: nft_storage_api_key || import.meta.env.VITE_NFT_STORAGE_TOKEN
+  });
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await client.storeDirectory(filesList);
+      resolve(result);
+    } catch (e) {
+      reject(e);
+    }
   })
 }
 

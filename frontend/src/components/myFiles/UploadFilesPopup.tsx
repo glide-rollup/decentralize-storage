@@ -1,13 +1,12 @@
 import {useEffect, useState} from "react";
 import {Dropzone, FileItem} from "@dropzone-ui/react";
-import {NFTStorage} from 'nft.storage'
 import {Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input} from "@material-tailwind/react";
 import {mainContract} from '../../utils/contracts';
 import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
 import {Loader} from "../Loader";
 import {addTransaction} from "../../store/transactionSlice";
 import {useDispatch} from "react-redux";
-import {uploadFiles} from "../../utils/storage";
+import {STORAGE_KEY, uploadFiles} from "../../utils/storage";
 import {UploadFile} from "../../types";
 import {FileValidated} from "@dropzone-ui/react/build/components/dropzone/components/utils/validation.utils";
 
@@ -85,6 +84,14 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
       })
 
       setUploadedFiles(resultFiles);
+    }).catch(e => {
+      console.log(`Error`, e);
+      let details = "";
+      const myKey = localStorage.getItem(STORAGE_KEY);
+      if (myKey) {
+        details = ", please check your API Key";
+      }
+      alert(`Files uploading error${details}`)
     });
   }
 
