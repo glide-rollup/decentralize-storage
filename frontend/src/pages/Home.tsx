@@ -11,7 +11,7 @@ import {Wrapper} from "../assets/css/common.style";
 
 export default function Home() {
   return (
-    <Wrapper>
+    <Wrapper id={"home"}>
       <Header/>
 
       <div className={"z-0 pt-24"}>

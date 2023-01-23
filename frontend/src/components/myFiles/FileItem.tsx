@@ -1,9 +1,4 @@
-import {
-  AiFillStar,
-  AiOutlineStar,
-  HiOutlineDownload,
-  MdModeEdit
-} from "react-icons/all";
+import {HiOutlineDownload, MdModeEdit} from "react-icons/all";
 import {useState} from "react";
 import {formatBytes, secondsToDate} from "../../utils/format";
 import {File} from '../../types';

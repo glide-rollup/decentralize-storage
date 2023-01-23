@@ -1,7 +1,16 @@
-import logo from "../../public/favicon.svg";
-import {Link} from "react-router-dom";
+import logo from "../assets/img/logo.png";
+import {Link, useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {NavLink, ScrollLink} from "../assets/css/common.style";
 
 const Footer = () => {
+  const location = useLocation();
+  const [isHomepage, setIsHomepage] = useState(true);
+
+  useEffect(() => {
+    setIsHomepage(location.pathname === "/");
+  }, [location]);
+
   return (
     <footer className="px-4 pt-12 pb-4 text-white bg-white border-t border-gray-200">
       <div className="container flex flex-col justify-between max-w-6xl px-4 mx-auto overflow-hidden lg:flex-row">
@@ -20,26 +29,30 @@ const Footer = () => {
             <li className="inline-block px-3 py-2 mt-5 font-bold tracking-wide text-gray-800 uppercase md:mt-0">
               Product
             </li>
-            <li>
-              <a href="#_"
-                 className="inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600">Features</a>
-            </li>
-            <li><a href="#_"
-                   className="inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600">Partners</a>
-            </li>
-            <li><a href="#_"
-                   className="inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600">Contact Us</a></li>
+            {isHomepage ? (
+              <>
+                <ScrollLink className={"footer-link"} to={"home"} smooth={true}>Home</ScrollLink>
+                <ScrollLink className={"footer-link"} to={"features"} smooth={true}>Features</ScrollLink>
+                <ScrollLink className={"footer-link"} to={"partners"} smooth={true}>Partners</ScrollLink>
+              </>
+            ) : (
+              <>
+                <NavLink className={"footer-link"} to={"/"}>Home</NavLink>
+                <NavLink className={"footer-link"} to={"/#features"}>Features</NavLink>
+                <NavLink className={"footer-link"} to={"/#partners"}>Partners</NavLink>
+              </>
+            )}
           </ul>
           <ul className="flex flex-col w-full p-0 font-medium text-left text-gray-700 list-none">
             <li className="inline-block px-3 py-2 mt-5 font-bold tracking-wide text-gray-800 uppercase md:mt-0">
               Company
             </li>
-            <li><a href="#_"
-                   className="inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600">Privacy</a>
+            <li>
+              <Link to={"/privacy"} className={"footer-link"}>Privacy</Link>
             </li>
-            <li><a href="#_" className="inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600">Terms
-              of
-              Service</a></li>
+            <li>
+              <Link to={"/terms"} className={"footer-link"}>Terms of Service</Link>
+            </li>
           </ul>
 
           <div className="flex flex-col w-full text-gray-700">
@@ -71,7 +84,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="pt-4 mt-10 text-center text-gray-500 border-t border-gray-100">
-        © 2022 vStorage. All rights reserved.
+        © 2023 vStorage. All rights reserved.
       </div>
     </footer>
   );

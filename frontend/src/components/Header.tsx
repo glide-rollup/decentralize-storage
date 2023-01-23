@@ -1,4 +1,4 @@
-import logo from "../../public/favicon.svg";
+import logo from "../assets/img/logo.png";
 import CustomConnect from "./CustomConnect";
 import {useAccount} from "wagmi";
 import {Link, useLocation} from "react-router-dom";
@@ -33,7 +33,7 @@ const Header = () => {
         className="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
 
         <Link to={"/"} className="relative flex items-center inline-block h-5 h-full font-black leading-none">
-          <img src={logo} alt="" className="w-auto h-10 text-indigo-600 fill-current"/>
+          <img src={logo} alt="logo" className="w-auto h-14 text-indigo-600 fill-current"/>
           <span className="ml-3 text-2xl text-gray-800">
               vStorage
             </span>

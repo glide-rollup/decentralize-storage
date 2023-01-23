@@ -8,6 +8,8 @@ import Favorite from "./pages/myFiles/Favorite";
 import FilesList from "./pages/myFiles/FilesList";
 import Settings from "./pages/myFiles/Settings";
 import Faq from "./pages/myFiles/Faq";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 export default function App() {
   const {isConnected} = useAccount();
@@ -40,6 +42,8 @@ export default function App() {
               </Route>
             </Route>
 
+            <Route path="privacy" element={<Privacy/>}/>
+            <Route path="terms" element={<Terms/>}/>
             <Route path='*' element={<Error404/>}/>
           </Routes>
         </Suspense>
