@@ -29,12 +29,6 @@ export default function Settings() {
       <h1 className={"text-4xl mb-4 font-semibold text-center"}>Settings</h1>
 
       <div className={"max-w-2xl mx-auto"}>
-        {savedMessageVisible && (
-          <div className={"text-green-500 font-semibold bg-green-50 rounded-lg text-center py-4"}>
-            Your API Key successfully saved!
-          </div>
-        )}
-
         <p className={"mb-1 mt-4"}>
           You can provide your own nft.storage API Key to store all files under your own account:
         </p>
@@ -48,6 +42,11 @@ export default function Settings() {
             <span>Save</span>
           </Button>
         </form>
+        {savedMessageVisible && (
+          <div className={"text-green-500 font-semibold bg-green-50 rounded-lg text-center py-4 mt-4"}>
+            Your API Key successfully saved!
+          </div>
+        )}
       </div>
 
     </>
