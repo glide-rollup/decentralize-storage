@@ -21,11 +21,11 @@ abstract contract Utils {
 	}
 
 	function indexOfStr(string[] memory self, string memory value) internal pure returns (uint, bool) {
-		for (uint i = 0; i < self.length; ++i) if (string_compare(self[i], value) == 0) return (i, true);
+		for (uint i = 0; i < self.length; ++i) if (stringCompare(self[i], value) == 0) return (i, true);
 		return (0, false);
 	}
 
-	function string_compare(string memory _a, string memory _b) private pure returns (int) {
+	function stringCompare(string memory _a, string memory _b) internal pure returns (int) {
 		bytes memory a = bytes(_a);
 		bytes memory b = bytes(_b);
 		uint minLength = a.length;
@@ -65,10 +65,6 @@ abstract contract Utils {
 
 	//	function randomNumber(uint _max, uint8 _shift) internal view returns (uint) {
 	//		return uint(keccak256(abi.encodePacked(_shift, msg.sender, block.difficulty, block.timestamp, uint(1)))) % _max;
-	//	}
-
-	//	function string_equal(string memory _a, string memory _b) internal pure returns (bool) {
-	//		return string_compare(_a, _b) == 0;
 	//	}
 
 }

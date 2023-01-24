@@ -1,4 +1,4 @@
-import {AiFillStar, AiOutlineStar, MdDeleteOutline} from "react-icons/all";
+import {AiFillStar, AiOutlineStar} from "react-icons/all";
 import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
 import {mainContract} from "../../utils/contracts";
 import {addTransaction} from "../../store/transactionSlice";
@@ -12,53 +12,99 @@ const ItemFavorite = ({itemType, itemId, isFavorite, toggleFavorite}: {
   toggleFavorite: Function
 }) => {
   const dispatch = useDispatch();
+  const [removeItem, setRemoveItem] = useState<number | string | null>(null);
+  const [addItem, setAddItem] = useState<number | string | null>(null);
 
-  // const {config: configRemove} = usePrepareContractWrite({
-  //   ...mainContract,
-  //   functionName: itemType === 'file' ? 'removeFiles' : 'removeDirs',
-  //   enabled: removeList.length > 0,
-  //   args: [removeList]
-  // });
-  //
-  // const {data: dataRemove, write: writeRemove, status: removeStatus} = useContractWrite({
-  //   ...configRemove,
-  //   onSuccess: ({hash}) => {
-  //     setRemoveList([]);
-  //     dispatch(addTransaction({
-  //       hash: hash,
-  //       description: `Remove ${itemType}${idList.length > 1 ? "s" : ""}`
-  //     }));
-  //   },
-  //   onError: ({message}) => {
-  //     setRemoveList([]);
-  //     handleStartRemove(false);
-  //     console.log(`Error`, message);
-  //   },
-  // });
-  //
-  // useWaitForTransaction({
-  //   hash: dataRemove?.hash,
-  //   onError: error => {
-  //     console.log('Is Err', error);
-  //     setRemoveList([]);
-  //   },
-  //   onSuccess: () => {
-  //     handleSuccess?.();
-  //     setRemoveList([]);
-  //   },
-  // });
-  //
-  // useEffect(() => {
-  //   if (writeRemove && removeStatus !== 'loading') {
-  //     writeRemove();
-  //     handleStartRemove(true);
-  //   }
-  // }, [writeRemove]);
-  //
-  //
+  // Add to favorite
+
+  const {config: configFavoriteAdd} = usePrepareContractWrite({
+    ...mainContract,
+    functionName: itemType === 'file' ? 'addFavoriteFile' : 'addFavoriteDir',
+    enabled: addItem !== null,
+    args: [itemId]
+  });
+
+  const {data: favoriteDataAdd, write: favoriteWriteAdd, status: favoriteStatusAdd} = useContractWrite({
+    ...configFavoriteAdd,
+    onSuccess: ({hash}) => {
+      setAddItem(null);
+      dispatch(addTransaction({
+        hash: hash,
+        description: `Add ${itemType} to favorites`
+      }));
+    },
+    onError: ({message}) => {
+      setAddItem(null);
+      console.log(`Error`, message);
+    },
+  });
+
+  useWaitForTransaction({
+    hash: favoriteDataAdd?.hash,
+    onError: error => {
+      console.log('Is Err', error);
+    },
+    onSuccess: () => {
+      toggleFavorite?.();
+      console.log(`onSuccess`);
+    },
+  });
+
+  useEffect(() => {
+    if (favoriteWriteAdd && addItem !== null && favoriteStatusAdd !== 'loading') {
+      favoriteWriteAdd();
+    }
+  }, [favoriteWriteAdd]);
+
+  // Remove from favorite
+
+  const {config: configFavoriteRemove} = usePrepareContractWrite({
+    ...mainContract,
+    functionName: itemType === 'file' ? 'removeFavoriteFile' : 'removeFavoriteDir',
+    enabled: removeItem !== null,
+    args: [itemId]
+  });
+
+  const {data: favoriteDataRemove, write: favoriteWriteRemove, status: favoriteStatusRemove} = useContractWrite({
+    ...configFavoriteRemove,
+    onSuccess: ({hash}) => {
+      setRemoveItem(null);
+      dispatch(addTransaction({
+        hash: hash,
+        description: `Remove ${itemType} from favorites`
+      }));
+    },
+    onError: ({message}) => {
+      setRemoveItem(null);
+      console.log(`Error`, message);
+    },
+  });
+
+  useWaitForTransaction({
+    hash: favoriteDataRemove?.hash,
+    onError: error => {
+      console.log('Is Err', error);
+    },
+    onSuccess: () => {
+      toggleFavorite?.();
+      console.log(`onSuccess`);
+    },
+  });
+
+  useEffect(() => {
+    if (favoriteWriteRemove && removeItem !== null && favoriteStatusRemove !== 'loading') {
+      favoriteWriteRemove();
+    }
+  }, [favoriteWriteRemove]);
+
+  // Actions
+
   const handleToggleFavorite = () => {
-    alert('Coming soon...');
-    //   setRemoveList(idList);
+    if (isFavorite) {
+      setRemoveItem(itemId);
+    } else {
+      setAddItem(itemId);
+    }
   }
 
   return (

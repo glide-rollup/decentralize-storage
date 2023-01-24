@@ -200,4 +200,55 @@ contract vStorageContract is Utils {
 		}
 	}
 
+	// Add directory to favorites
+	function addFavoriteDir(uint _dirId) public {
+		Directory storage dir = dirs[_dirId];
+		require(dir.owner == msg.sender, "No Access");
+
+		if (!dir.isFavorite) {
+			userFavoriteDirs[msg.sender].push(_dirId);
+			dir.isFavorite = true;
+		}
+	}
+
+	// Add file to favorites
+	function addFavoriteFile(string memory _fileId) public {
+		File storage file = files[_fileId];
+		require(file.owner == msg.sender, "No Access");
+
+		if (!file.isFavorite) {
+			userFavoriteFiles[msg.sender].push(_fileId);
+			file.isFavorite = true;
+		}
+	}
+
+	// Remove directory from favorites
+	function removeFavoriteDir(uint _dirId) public {
+		Directory storage dir = dirs[_dirId];
+		require(dir.owner == msg.sender, "No Access");
+
+		if (dir.isFavorite) {
+			(uint _index, bool _exists) = Utils.indexOf(userFavoriteDirs[msg.sender], _dirId);
+			if (_exists) {
+				delete userFavoriteDirs[msg.sender][_index];
+			}
+			dir.isFavorite = false;
+		}
+	}
+
+	// Remove file from favorites
+	function removeFavoriteFile(string memory _fileId) public {
+		File storage file = files[_fileId];
+		require(file.owner == msg.sender, "No Access");
+
+		if (file.isFavorite) {
+			(uint _index, bool _exists) = Utils.indexOfStr(userFavoriteFiles[msg.sender], _fileId);
+			if (_exists) {
+				delete userFavoriteFiles[msg.sender][_index];
+			}
+
+			file.isFavorite = false;
+		}
+	}
+
 }

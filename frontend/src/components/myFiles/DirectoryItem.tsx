@@ -1,5 +1,5 @@
 import {Directory} from "../../types";
-import {AiOutlineStar, GoFileDirectory, MdDeleteOutline, MdModeEdit} from "react-icons/all";
+import {GoFileDirectory, MdModeEdit} from "react-icons/all";
 import {secondsToDate} from "../../utils/format";
 import ItemRemove from "./ItemRemove";
 import {useState} from "react";
@@ -17,8 +17,7 @@ const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openD
           isFavorite={dir.isFavorite}
           itemId={dir.id}
           itemType={'directory'}
-          toggleFavorite={() => {
-          }}
+          toggleFavorite={() => reloadList()}
         />
       </div>
       <div className={"flex-1 font-medium flex"}>
