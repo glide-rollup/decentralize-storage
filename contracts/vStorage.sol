@@ -58,6 +58,26 @@ contract vStorageContract is Utils {
 		return _result;
 	}
 
+	// Get list of favorite files
+	function getFavoriteFiles(address _account) public view returns (File[] memory) {
+		uint _filesCount = userFavoriteFiles[_account].length;
+		File[] memory _result = new File[](_filesCount);
+		for (uint _i = 0; _i < _filesCount; ++_i) {
+			_result[_i] = files[userFavoriteFiles[_account][_i]];
+		}
+		return _result;
+	}
+
+	// Get list of favorite dirs
+	function getFavoriteDirs(address _account) public view returns (Directory[] memory) {
+		uint _dirsCount = userFavoriteDirs[_account].length;
+		Directory[] memory _result = new Directory[](_dirsCount);
+		for (uint _i = 0; _i < _dirsCount; ++_i) {
+			_result[_i] = dirs[userFavoriteDirs[_account][_i]];
+		}
+		return _result;
+	}
+
 	// Get list of subdirectories
 	function getDirSubDirs(uint _dirId, address _account) public view returns (Directory[] memory) {
 		uint _dirsCount = userDirs[_account][_dirId].length;
