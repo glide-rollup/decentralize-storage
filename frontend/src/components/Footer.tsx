@@ -32,15 +32,27 @@ const Footer = () => {
             </li>
             {isHomepage ? (
               <>
-                <ScrollLink className={"footer-link"} to={"home"} smooth={true}>Home</ScrollLink>
-                <ScrollLink className={"footer-link"} to={"features"} smooth={true}>Features</ScrollLink>
-                <ScrollLink className={"footer-link"} to={"partners"} smooth={true}>Partners</ScrollLink>
+                <ScrollLink to={"home"} smooth={true}>
+                  <span className={"footer-link"}>Home</span>
+                </ScrollLink>
+                <ScrollLink to={"features"} smooth={true}>
+                  <span className={"footer-link"}>Features</span>
+                </ScrollLink>
+                <ScrollLink to={"partners"} smooth={true}>
+                  <span className={"footer-link"}>Partners</span>
+                </ScrollLink>
               </>
             ) : (
               <>
-                <NavLink className={"footer-link"} to={"/"}>Home</NavLink>
-                <NavLink className={"footer-link"} to={"/#features"}>Features</NavLink>
-                <NavLink className={"footer-link"} to={"/#partners"}>Partners</NavLink>
+                <NavLink to={"/"}>
+                  <span className={"footer-link"}>Home</span>
+                </NavLink>
+                <NavLink to={"/#features"}>
+                  <span className={"footer-link"}>Features</span>
+                </NavLink>
+                <NavLink to={"/#partners"}>
+                  <span className={"footer-link"}>Partners</span>
+                </NavLink>
               </>
             )}
           </ul>
@@ -50,7 +62,9 @@ const Footer = () => {
             </li>
             {isHomepage ? (
               <li>
-                <ScrollLink className={"footer-link"} to={"faq"} smooth={true}>FAQ</ScrollLink>
+                <ScrollLink to={"faq"} smooth={true}>
+                  <span className={"footer-link"}>FAQ</span>
+                </ScrollLink>
               </li>
             ) : (
               <li>

@@ -416,5 +416,5 @@ body {
 }
 
 .footer-link {
-  @apply inline-block px-3 py-2 text-gray-500 no-underline hover:text-gray-600 font-medium;
+  @apply inline-block px-3 py-1.5 text-gray-500 no-underline hover:text-gray-600 font-medium;
 }
