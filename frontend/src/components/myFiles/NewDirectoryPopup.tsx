@@ -30,6 +30,7 @@ const NewDirectoryPopup = ({directoryId, handleSuccess}: Props) => {
     ...configCall,
     onSuccess: ({hash}) => {
       setIsLoading(false);
+      setDirectoryTitle("");
       setPopupVisible(false);
       dispatch(addTransaction({
         hash: hash,
