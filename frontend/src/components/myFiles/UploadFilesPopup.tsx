@@ -1,16 +1,21 @@
-import {useEffect, useState} from "react";
-import {Dropzone, FileItem} from "@dropzone-ui/react";
-import {Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input} from "@material-tailwind/react";
-import {mainContract} from '../../utils/contracts';
-import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
-import {Loader} from "../Loader";
-import {addTransaction} from "../../store/transactionSlice";
-import {useDispatch} from "react-redux";
-import {STORAGE_KEY, uploadFiles} from "../../utils/storage";
-import {UploadFile} from "../../types";
-import {FileValidated} from "@dropzone-ui/react/build/components/dropzone/components/utils/validation.utils";
+import { useEffect, useState } from "react";
+import { Dropzone, FileItem } from "@dropzone-ui/react";
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input } from "@material-tailwind/react";
+import { mainContract } from '../../utils/contracts';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { Loader } from "../../ui/Loader";
+import { addTransaction } from "../../store/transactionSlice";
+import { useDispatch } from "react-redux";
+import { STORAGE_KEY, uploadFiles } from "../../utils/storage";
+import { UploadFile } from "../../types";
+import { FileValidated } from "@dropzone-ui/react/build/components/dropzone/components/utils/validation.utils";
 
-const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, handleSuccess: Function }) => {
+type Props = {
+  directoryId: number,
+  handleSuccess: Function
+};
+
+const UploadFilesPopup = ({directoryId, handleSuccess}: Props) => {
   const dispatch = useDispatch();
   const [files, setFiles] = useState<FileValidated[]>([]);
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
@@ -117,7 +122,7 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
               )}
 
               {files.map((file, index) => (
-                <FileItem {...file} key={index} preview/>
+                <FileItem {...file} key={index} preview />
               ))}
             </Dropzone>
           </div>
@@ -125,7 +130,7 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
 
         <DialogFooter className={"px-6 pt-0"}>
           {isLoading ? (
-            <Loader size={"md"}/>
+            <Loader size={"md"} />
           ) : (
             <>
               <Button variant="text"

@@ -1,11 +1,17 @@
-import {Directory} from "../../types";
-import {GoFileDirectory, MdModeEdit} from "react-icons/all";
-import {secondsToDate} from "../../utils/format";
+import { Directory } from "../../types";
+import { GoFileDirectory, MdModeEdit } from "react-icons/all";
+import { secondsToDate } from "../../utils/format";
 import ItemRemove from "./ItemRemove";
-import {useState} from "react";
+import { useState } from "react";
 import ItemFavorite from "./ItemFavorite";
 
-const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openDirectory: Function, reloadList: Function }) => {
+type Props = {
+  dir: Directory,
+  openDirectory: Function,
+  reloadList: Function
+}
+
+const DirectoryItem = ({dir, openDirectory, reloadList}: Props) => {
   const [isRemoval, setIsRemoval] = useState(false);
 
   return (
@@ -21,7 +27,7 @@ const DirectoryItem = ({dir, openDirectory, reloadList}: { dir: Directory, openD
         />
       </div>
       <div className={"flex-1 font-medium flex"}>
-        <GoFileDirectory size={20}/>
+        <GoFileDirectory size={20} />
         <span className={"ml-2 text-gray-800"}>{dir.name}</span>
       </div>
       <div className={"w-32"}>&minus;</div>

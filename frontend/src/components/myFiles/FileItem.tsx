@@ -1,14 +1,19 @@
-import {HiOutlineDownload, MdModeEdit} from "react-icons/all";
-import {useState} from "react";
-import {formatBytes, secondsToDate} from "../../utils/format";
-import {File} from '../../types';
+import { HiOutlineDownload, MdModeEdit } from "react-icons/all";
+import { useState } from "react";
+import { formatBytes, secondsToDate } from "../../utils/format";
+import { File } from '../../types';
 import VirsionListPopup from "./VirsionListPopup";
 import ItemRemove from "./ItemRemove";
 // @ts-ignore
 import ReactMimeIcons from 'react-mime-icons';
 import ItemFavorite from "./ItemFavorite";
 
-const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
+type Props = {
+  file: File,
+  reloadList: Function
+};
+
+const FileItem = ({file, reloadList}: Props) => {
   const [isRemoval, setIsRemoval] = useState(false);
 
   const getDownloadURL = () => {
@@ -27,12 +32,12 @@ const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
         />
       </div>
       <div className={"flex-1 font-medium flex pl-0.5"}>
-        <ReactMimeIcons mimetype={file.mimeType} size={'1.05rem'}/>
+        <ReactMimeIcons mimetype={file.mimeType} size={'1.05rem'} />
         <span className={"ml-2 text-gray-800 font-medium"}>{file.name}</span>
       </div>
       <div className={"w-32"}>{formatBytes(file.size)}</div>
       <div className={"w-20 flex"}>
-        <VirsionListPopup file={file}/>
+        <VirsionListPopup file={file} />
       </div>
       <div className={"w-20"}>{secondsToDate(file.updatedAt)}</div>
       <div className={"w-32 justify-end flex gap-3"}>

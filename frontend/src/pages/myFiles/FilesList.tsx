@@ -1,15 +1,15 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import DirectoryItem from "../../components/myFiles/DirectoryItem";
 import NewDirectoryPopup from "../../components/myFiles/NewDirectoryPopup";
-import {useAccount, useContractRead} from "wagmi";
-import {mainContract} from "../../utils/contracts";
-import {transformDir, transformFile} from "../../utils/transform";
-import {DirectoryInput, Directory, FileInput, File} from "../../types";
+import { useAccount, useContractRead } from "wagmi";
+import { mainContract } from "../../utils/contracts";
+import { transformDir, transformFile } from "../../utils/transform";
+import { DirectoryInput, Directory, FileInput, File } from "../../types";
 import UploadFilesPopup from "../../components/myFiles/UploadFilesPopup";
 import FileItem from "../../components/myFiles/FileItem";
-import {Loader} from "../../components/Loader";
-import {useNavigate, useParams} from "react-router-dom";
-import BreadcrumbsPath from "../../components/myFiles/Breadcrumbs";
+import { Loader } from "../../ui/Loader";
+import { useNavigate, useParams } from "react-router-dom";
+import BreadcrumbsPath from "../../ui/Breadcrumbs";
 
 export default function FilesList() {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ export default function FilesList() {
   if (isLoading) {
     return (
       <div className={"text-center mt-8"}>
-        <Loader size={"lg"}/>
+        <Loader size={"lg"} />
       </div>
     );
   }

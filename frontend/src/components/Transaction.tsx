@@ -1,12 +1,16 @@
 import React from "react";
-import {useWaitForTransaction} from 'wagmi';
-import {Loader} from './Loader';
-import {TransactionType} from "../types";
-import {removeTransaction} from "../store/transactionSlice";
-import {useDispatch} from "react-redux";
-import {MdClose, MdOutlineCheckCircleOutline, MdOutlineErrorOutline} from 'react-icons/md';
+import { useWaitForTransaction } from 'wagmi';
+import { Loader } from '../ui/Loader';
+import { TransactionType } from "../types";
+import { removeTransaction } from "../store/transactionSlice";
+import { useDispatch } from "react-redux";
+import { MdClose, MdOutlineCheckCircleOutline, MdOutlineErrorOutline } from 'react-icons/md';
 
-export const Transaction = ({tx}: { tx: TransactionType }) => {
+type Props = {
+  tx: TransactionType
+};
+
+export const Transaction = ({tx}: Props) => {
   const dispatch = useDispatch();
 
   const {isError, isLoading, isSuccess} = useWaitForTransaction({
@@ -48,14 +52,14 @@ export const Transaction = ({tx}: { tx: TransactionType }) => {
         <div className="w-8 pt-1 mr-4 opacity-90">
           {isLoading && (
             <div className="w-10">
-              <Loader size={"lg"}/>
+              <Loader size={"lg"} />
             </div>
           )}
           {isError && (
-            <MdOutlineErrorOutline color="white" className="w-8 h-8"/>
+            <MdOutlineErrorOutline color="white" className="w-8 h-8" />
           )}
           {isSuccess && (
-            <MdOutlineCheckCircleOutline color="white" className="w-8 h-8"/>
+            <MdOutlineCheckCircleOutline color="white" className="w-8 h-8" />
           )}
         </div>
 

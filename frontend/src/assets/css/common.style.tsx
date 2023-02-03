@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as Scroll from "react-scroll";
-import {Link, NavLink as ReactNavLink} from "react-router-dom";
+import { Link, NavLink as ReactNavLink } from "react-router-dom";
 
 export const Wrapper = styled.section.attrs({
   className: `

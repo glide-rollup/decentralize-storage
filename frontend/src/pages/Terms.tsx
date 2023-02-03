@@ -1,12 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {Wrapper} from "../assets/css/common.style";
+import { Wrapper } from "../assets/css/common.style";
 
 export default function Terms() {
 
   return (
     <Wrapper>
-      <Header/>
+      <Header />
 
       <div className={"container h-full max-w-6xl px-8 mx-auto xl:px-0 pt-32 mb-[300px]"}>
         <h1 className={"text-4xl mb-4 font-semibold text-center"}>Terms & Conditions</h1>
@@ -68,7 +68,7 @@ export default function Terms() {
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </Wrapper>
   )
 }

@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {TransactionType} from "../types";
+import { createSlice } from "@reduxjs/toolkit";
+import { TransactionType } from "../types";
 
 const transactionSlice = createSlice({
   name: "transaction",
@@ -7,7 +7,7 @@ const transactionSlice = createSlice({
     list: []
   },
   reducers: {
-    addTransaction(state: { list: TransactionType[] }, action) {
+    addTransaction(state: {list: TransactionType[]}, action) {
       state.list.push({
         hash: action.payload.hash,
         description: action.payload.description || ""

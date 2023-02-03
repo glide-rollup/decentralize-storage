@@ -1,18 +1,20 @@
-import {MdDeleteOutline} from "react-icons/all";
-import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
-import {mainContract} from "../../utils/contracts";
-import {addTransaction} from "../../store/transactionSlice";
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import { MdDeleteOutline } from "react-icons/all";
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { mainContract } from "../../utils/contracts";
+import { addTransaction } from "../../store/transactionSlice";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-const ItemRemove = ({itemType, idList, handleStartRemove, handleSuccess}: {
-  itemType: "file" | "directory",
-  idList: number[] | string[],
+type Props = {
+  itemType: "file"|"directory",
+  idList: number[]|string[],
   handleStartRemove: Function,
   handleSuccess: Function
-}) => {
+};
+
+const ItemRemove = ({itemType, idList, handleStartRemove, handleSuccess}: Props) => {
   const dispatch = useDispatch();
-  const [removeList, setRemoveList] = useState<number[] | string[]>([]);
+  const [removeList, setRemoveList] = useState<number[]|string[]>([]);
 
   const {config: configRemove} = usePrepareContractWrite({
     ...mainContract,

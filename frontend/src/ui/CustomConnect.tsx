@@ -1,10 +1,14 @@
-import {ConnectButton} from '@rainbow-me/rainbowkit';
-import {useNavigate} from "react-router-dom";
-import {Btn} from "../assets/css/common.style";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useNavigate } from "react-router-dom";
+import { Btn } from "../assets/css/common.style";
 
 const dashboardURL = "/my";
 
-const CustomConnect = ({isHeader}: { isHeader: boolean }) => {
+type Props = {
+  isHeader: boolean
+};
+
+const CustomConnect = ({isHeader}: Props) => {
   const navigate = useNavigate();
 
   const redirectOrConnect = (isConnected: boolean, openConnectModal: any) => {
@@ -48,7 +52,7 @@ const CustomConnect = ({isHeader}: { isHeader: boolean }) => {
                     Connect Wallet
                   </Btn>
                 ) : (
-                  <ConnectButton showBalance={false}/>
+                  <ConnectButton showBalance={false} />
                 )}
               </>
             )}

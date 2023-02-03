@@ -1,12 +1,17 @@
-import React, {useState} from "react";
-import {Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input} from "@material-tailwind/react";
-import {mainContract} from '../../utils/contracts';
-import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
-import {Loader} from "../Loader";
-import {addTransaction} from "../../store/transactionSlice";
-import {useDispatch} from "react-redux";
+import React, { useState } from "react";
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input } from "@material-tailwind/react";
+import { mainContract } from '../../utils/contracts';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { Loader } from "../../ui/Loader";
+import { addTransaction } from "../../store/transactionSlice";
+import { useDispatch } from "react-redux";
 
-const NewDirectoryPopup = ({directoryId, handleSuccess}: { directoryId: number, handleSuccess: Function }) => {
+type Props = {
+  directoryId: number,
+  handleSuccess: Function
+};
+
+const NewDirectoryPopup = ({directoryId, handleSuccess}: Props) => {
   const dispatch = useDispatch();
   const [directoryTitle, setDirectoryTitle] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
@@ -83,7 +88,7 @@ const NewDirectoryPopup = ({directoryId, handleSuccess}: { directoryId: number, 
 
         <DialogFooter className={"px-6 pt-0"}>
           {isLoading ? (
-            <Loader size={"md"}/>
+            <Loader size={"md"} />
           ) : (
             <>
               <Button variant="text"

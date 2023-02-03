@@ -1,6 +1,6 @@
-import {Suspense} from 'react';
-import {BrowserRouter, Navigate, Outlet, Route, Routes} from 'react-router-dom';
-import {useAccount} from "wagmi";
+import { Suspense } from 'react';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { useAccount } from "wagmi";
 import Home from "./pages/Home";
 import MyFilesLayout from "./pages/myFiles/MyFilesLayout";
 import Error404 from "./pages/Error404";
@@ -16,9 +16,9 @@ export default function App() {
 
   const ProtectedRoute = () => {
     if (!isConnected) {
-      return <Navigate to="/" replace/>;
+      return <Navigate to="/" replace />;
     }
-    return <Outlet/>;
+    return <Outlet />;
   };
 
   const loadingFallback = () => (
@@ -30,21 +30,21 @@ export default function App() {
       <BrowserRouter>
         <Suspense fallback={loadingFallback()}>
           <Routes>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={<Home />} />
 
-            <Route element={<ProtectedRoute/>}>
-              <Route path="/my" element={<MyFilesLayout/>}>
-                <Route path="" element={<FilesList/>}/>
-                <Route path=":currentDirectoryId" element={<FilesList/>}/>
-                <Route path="favorite" element={<Favorite/>}/>
-                <Route path="settings" element={<Settings/>}/>
-                <Route path="faq" element={<Faq/>}/>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/my" element={<MyFilesLayout />}>
+                <Route path="" element={<FilesList />} />
+                <Route path=":currentDirectoryId" element={<FilesList />} />
+                <Route path="favorite" element={<Favorite />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="faq" element={<Faq />} />
               </Route>
             </Route>
 
-            <Route path="privacy" element={<Privacy/>}/>
-            <Route path="terms" element={<Terms/>}/>
-            <Route path='*' element={<Error404/>}/>
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="terms" element={<Terms />} />
+            <Route path='*' element={<Error404 />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

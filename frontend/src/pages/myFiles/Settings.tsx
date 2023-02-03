@@ -1,6 +1,6 @@
-import React, {FormEvent, useEffect, useState} from "react";
-import {Button, Input} from "@material-tailwind/react";
-import {STORAGE_KEY} from "../../utils/storage";
+import React, { FormEvent, useEffect, useState } from "react";
+import { Button, Input } from "@material-tailwind/react";
+import { STORAGE_KEY } from "../../utils/storage";
 
 export default function Settings() {
   const [apiKey, setApiKey] = useState("");

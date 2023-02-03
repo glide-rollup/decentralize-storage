@@ -1,5 +1,5 @@
-import {BigNumber} from "ethers";
-import {Hash} from "@wagmi/core";
+import { BigNumber } from "ethers";
+import { Hash } from "@wagmi/core";
 
 export interface IState {
   transactions: {

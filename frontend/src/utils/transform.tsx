@@ -1,4 +1,4 @@
-import {DirectoryInput, Directory, FileInput, File} from "../types";
+import { DirectoryInput, Directory, FileInput, File } from "../types";
 
 export const transformDir = (dir: DirectoryInput): Directory => {
   return {

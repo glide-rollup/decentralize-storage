@@ -1,19 +1,21 @@
-import {AiFillStar, AiOutlineStar} from "react-icons/all";
-import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
-import {mainContract} from "../../utils/contracts";
-import {addTransaction} from "../../store/transactionSlice";
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import { AiFillStar, AiOutlineStar } from "react-icons/all";
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { mainContract } from "../../utils/contracts";
+import { addTransaction } from "../../store/transactionSlice";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-const ItemFavorite = ({itemType, itemId, isFavorite, toggleFavorite}: {
-  itemType: "file" | "directory",
-  itemId: number | string,
+type Props = {
+  itemType: "file"|"directory",
+  itemId: number|string,
   isFavorite: boolean,
   toggleFavorite: Function
-}) => {
+};
+
+const ItemFavorite = ({itemType, itemId, isFavorite, toggleFavorite}: Props) => {
   const dispatch = useDispatch();
-  const [removeItem, setRemoveItem] = useState<number | string | null>(null);
-  const [addItem, setAddItem] = useState<number | string | null>(null);
+  const [removeItem, setRemoveItem] = useState<number|string|null>(null);
+  const [addItem, setAddItem] = useState<number|string|null>(null);
 
   // Add to favorite
 

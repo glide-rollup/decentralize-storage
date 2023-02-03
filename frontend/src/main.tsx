@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 
-import {Chain, configureChains, createClient, WagmiConfig} from 'wagmi';
-import {ThemeProvider} from "@material-tailwind/react";
-import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
-import {connectorsForWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
-import {injectedWallet, metaMaskWallet} from "@rainbow-me/rainbowkit/wallets";
-import {Provider} from "react-redux";
+import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { ThemeProvider } from "@material-tailwind/react";
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { injectedWallet, metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
+import { Provider } from "react-redux";
 import store from "./store";
 
 import '@rainbow-me/rainbowkit/styles.css'
@@ -60,7 +60,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <ThemeProvider>
         <RainbowKitProvider modalSize="compact" chains={chains}>
-          <App/>
+          <App />
         </RainbowKitProvider>
       </ThemeProvider>
     </Provider>

@@ -1,8 +1,13 @@
-import {Directory} from '../../types';
-import {BreadcrumbItem} from "../../assets/css/common.style";
-import {Breadcrumbs} from "@material-tailwind/react";
+import { Directory } from '../types';
+import { BreadcrumbItem } from "../assets/css/common.style";
+import { Breadcrumbs } from "@material-tailwind/react";
 
-const BreadcrumbsPath = ({directory, openDirectory}: { directory: Directory | undefined, openDirectory: Function }) => {
+type Props = {
+  directory: Directory|undefined,
+  openDirectory: Function
+}
+
+const BreadcrumbsPath = ({directory, openDirectory}: Props) => {
 
   return (
     <>

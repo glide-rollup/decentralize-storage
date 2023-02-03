@@ -1,4 +1,4 @@
-import {NFTStorage} from "nft.storage";
+import { NFTStorage } from "nft.storage";
 
 export const STORAGE_KEY = "vStorage:key";
 

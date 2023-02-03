@@ -1,15 +1,18 @@
-import {useState} from "react";
-import {Dialog, DialogHeader, DialogBody, Button, DialogFooter} from "@material-tailwind/react";
-import {IoListCircleOutline} from "react-icons/all";
-import {File} from '../../types';
-import {Loader} from "../Loader";
+import { useState } from "react";
+import { Dialog, DialogHeader, DialogBody, Button, DialogFooter } from "@material-tailwind/react";
+import { IoListCircleOutline } from "react-icons/all";
+import { File } from "../../types";
 
-const VirsionListPopup = ({file}: { file: File }) => {
+type Props = {
+  file: File
+};
+
+const VirsionListPopup = ({file}: Props) => {
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
 
   const handleOpen = () => setPopupVisible(!popupVisible);
 
-  const OneVersion = ({ipfsHash, version}: { ipfsHash: string, version: number }) => (
+  const OneVersion = ({ipfsHash, version}: {ipfsHash: string, version: number}) => (
     <div className={"flex gap-4 border-b py-2"}>
       <span>#{version}</span>
       <a href={`https://ipfs.io/ipfs/${ipfsHash}`}
