@@ -58,6 +58,26 @@ contract vStorageContract is Utils {
 		return _result;
 	}
 
+	// Get list of favorite files
+	function getFavoriteFiles(address _account) public view returns (File[] memory) {
+		uint _filesCount = userFavoriteFiles[_account].length;
+		File[] memory _result = new File[](_filesCount);
+		for (uint _i = 0; _i < _filesCount; ++_i) {
+			_result[_i] = files[userFavoriteFiles[_account][_i]];
+		}
+		return _result;
+	}
+
+	// Get list of favorite dirs
+	function getFavoriteDirs(address _account) public view returns (Directory[] memory) {
+		uint _dirsCount = userFavoriteDirs[_account].length;
+		Directory[] memory _result = new Directory[](_dirsCount);
+		for (uint _i = 0; _i < _dirsCount; ++_i) {
+			_result[_i] = dirs[userFavoriteDirs[_account][_i]];
+		}
+		return _result;
+	}
+
 	// Get list of subdirectories
 	function getDirSubDirs(uint _dirId, address _account) public view returns (Directory[] memory) {
 		uint _dirsCount = userDirs[_account][_dirId].length;
@@ -197,6 +217,57 @@ contract vStorageContract is Utils {
 
 			// remove dir
 			delete dirs[_idList[_i]];
+		}
+	}
+
+	// Add directory to favorites
+	function addFavoriteDir(uint _dirId) public {
+		Directory storage dir = dirs[_dirId];
+		require(dir.owner == msg.sender, "No Access");
+
+		if (!dir.isFavorite) {
+			userFavoriteDirs[msg.sender].push(_dirId);
+			dir.isFavorite = true;
+		}
+	}
+
+	// Add file to favorites
+	function addFavoriteFile(string memory _fileId) public {
+		File storage file = files[_fileId];
+		require(file.owner == msg.sender, "No Access");
+
+		if (!file.isFavorite) {
+			userFavoriteFiles[msg.sender].push(_fileId);
+			file.isFavorite = true;
+		}
+	}
+
+	// Remove directory from favorites
+	function removeFavoriteDir(uint _dirId) public {
+		Directory storage dir = dirs[_dirId];
+		require(dir.owner == msg.sender, "No Access");
+
+		if (dir.isFavorite) {
+			(uint _index, bool _exists) = Utils.indexOf(userFavoriteDirs[msg.sender], _dirId);
+			if (_exists) {
+				delete userFavoriteDirs[msg.sender][_index];
+			}
+			dir.isFavorite = false;
+		}
+	}
+
+	// Remove file from favorites
+	function removeFavoriteFile(string memory _fileId) public {
+		File storage file = files[_fileId];
+		require(file.owner == msg.sender, "No Access");
+
+		if (file.isFavorite) {
+			(uint _index, bool _exists) = Utils.indexOfStr(userFavoriteFiles[msg.sender], _fileId);
+			if (_exists) {
+				delete userFavoriteFiles[msg.sender][_index];
+			}
+
+			file.isFavorite = false;
 		}
 	}
 

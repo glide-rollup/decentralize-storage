@@ -50,7 +50,7 @@ const ItemRemove = ({itemType, idList, handleStartRemove, handleSuccess}: {
   });
 
   useEffect(() => {
-    if (writeRemove && removeStatus !== 'loading') {
+    if (writeRemove && removeStatus === 'idle') {
       writeRemove();
       handleStartRemove(true);
     }

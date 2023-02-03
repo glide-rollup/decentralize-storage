@@ -35,6 +35,7 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
     onSuccess: ({hash}) => {
       setIsLoading(false);
       setPopupVisible(false);
+      setFiles([]);
       dispatch(addTransaction({
         hash: hash,
         description: `Upload files`
@@ -61,7 +62,7 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: { directoryId: number, h
 
   useEffect(() => {
     // submit data if we receive json result URL
-    if (writeUpload && uploadStatus !== 'loading') {
+    if (writeUpload && uploadStatus === 'idle') {
       writeUpload();
     }
   }, [writeUpload]);

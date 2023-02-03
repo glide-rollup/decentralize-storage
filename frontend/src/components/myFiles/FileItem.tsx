@@ -23,8 +23,7 @@ const FileItem = ({file, reloadList}: { file: File, reloadList: Function }) => {
           isFavorite={file.isFavorite}
           itemId={file.id}
           itemType={'file'}
-          toggleFavorite={() => {
-          }}
+          toggleFavorite={() => reloadList()}
         />
       </div>
       <div className={"flex-1 font-medium flex pl-0.5"}>
