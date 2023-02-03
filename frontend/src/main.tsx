@@ -23,7 +23,7 @@ const hyperspaceChain: Chain = {
     symbol: 'tFIL',
   },
   rpcUrls: {
-    default: {http: ["https://api.hyperspace.node.glif.io/rpc/v0"]},
+    default: {http: ["https://api.hyperspace.node.glif.io/rpc/v1"]},
   },
   testnet: true,
 }

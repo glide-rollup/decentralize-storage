@@ -13,7 +13,7 @@ const DEPLOYER_PRIVATE_KEY = network.config.accounts[0];
 async function callRpc(method, params) {
   const options = {
     method: "POST",
-    url: "https://api.hyperspace.node.glif.io/rpc/v0",
+    url: "https://api.hyperspace.node.glif.io/rpc/v1",
     headers: {
       "Content-Type": "application/json",
     },
