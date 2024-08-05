@@ -1,4 +1,4 @@
-# vStorage
+# GlideStorage
 
 Store and manage your files and folders, own your content and share important information using Filecoin. 
 We provide new web3 features with simple user interface for versioning files storage.
