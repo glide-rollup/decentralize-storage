@@ -11,7 +11,7 @@ module.exports = {
   defaultNetwork: "hyperspace",
   networks: {
     hyperspace: {
-      url: "https://api.hyperspace.node.glif.io/rpc/v1",
+      url: "http://172.93.186.161:28545",
       accounts: [process.env.PRIVATE_KEY]
     }
   },

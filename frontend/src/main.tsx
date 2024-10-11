@@ -14,7 +14,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import './assets/css/index.css'
 
 const hyperspaceChain: Chain = {
-  id: 3141,
+  id: 30120706,
   name: 'Filecoin Hyperspace testnet',
   network: 'hyperspace',
   nativeCurrency: {
@@ -23,7 +23,7 @@ const hyperspaceChain: Chain = {
     symbol: 'tFIL',
   },
   rpcUrls: {
-    default: {http: ["https://api.hyperspace.node.glif.io/rpc/v1"]},
+    default: {http: ["http://172.93.186.161:28545"]},
   },
   testnet: true,
 }

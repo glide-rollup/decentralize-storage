@@ -13,7 +13,7 @@ const DEPLOYER_PRIVATE_KEY = network.config.accounts[0];
 async function callRpc(method, params) {
   const options = {
     method: "POST",
-    url: "https://api.hyperspace.node.glif.io/rpc/v1",
+    url: "http://172.93.186.161:28545",
     headers: {
       "Content-Type": "application/json",
     },
@@ -32,8 +32,7 @@ const deployer = new ethers.Wallet(DEPLOYER_PRIVATE_KEY);
 
 module.exports = async ({ deployments }) => {
   const { deploy } = deployments;
-
-  const priorityFee = await callRpc("eth_maxPriorityFeePerGas");
+  
   const f4Address = fa.newDelegatedEthAddress(deployer.address).toString();
   // const nonce = await callRpc("Filecoin.MpoolGetNonce", [f4Address]);
 
@@ -44,7 +43,6 @@ module.exports = async ({ deployments }) => {
   const contract = await deploy(contractName, {
     from: deployer.address,
     args: [],
-    maxPriorityFeePerGas: priorityFee,
     log: true,
   });
 

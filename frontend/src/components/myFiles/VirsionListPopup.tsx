@@ -15,7 +15,7 @@ const VirsionListPopup = ({file}: Props) => {
   const OneVersion = ({ipfsHash, version}: {ipfsHash: string, version: number}) => (
     <div className={"flex gap-4 border-b py-2"}>
       <span>#{version}</span>
-      <a href={`https://ipfs.io/ipfs/${ipfsHash}`}
+      <a href={`http://172.93.186.161:8080/ipfs/${ipfsHash}`}
          target={"_blank"}
          download={file.name}
          className={`text-indigo-500 hover:text-indigo-400 outline-0`}>

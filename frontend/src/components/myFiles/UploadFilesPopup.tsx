@@ -79,6 +79,7 @@ const UploadFilesPopup = ({directoryId, handleSuccess}: Props) => {
 
     const filesList = files.map((item: FileValidated) => item.file);
     uploadFiles(filesList).then(ipfsHash => {
+      console.log(`IPFS Hash`, ipfsHash);
       let resultFiles: UploadFile[] = [];
       files.map((item: FileValidated) => {
         resultFiles.push({

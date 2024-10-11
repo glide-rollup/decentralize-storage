@@ -17,7 +17,7 @@ const FileItem = ({file, reloadList}: Props) => {
   const [isRemoval, setIsRemoval] = useState(false);
 
   const getDownloadURL = () => {
-    return `https://ipfs.io/ipfs/${file.ipfsHash}`;
+    return `http://172.93.186.161:8080/ipfs/${file.ipfsHash}`;
   }
 
   return (
